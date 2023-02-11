@@ -17,7 +17,7 @@ import com.nguyen.Goldr_1.model.Txn;
 import com.nguyen.Goldr_1.services.TxnServices;
 
 @RestController
-@RequestMapping("/txns")
+@RequestMapping("users/{userId}/txns")
 public class TxnController {
 
 	@Autowired
@@ -34,8 +34,8 @@ public class TxnController {
 	}
 
 	@PostMapping
-	public void createTxn(@RequestBody Txn txn) {
-		txnServices.addTxn(txn);
+	public void createTxn(@PathVariable("userId") Integer userId, @RequestBody Txn txn) {
+		txnServices.addTxn(userId, txn);
 	}
 
 	@PutMapping("/{id}")
