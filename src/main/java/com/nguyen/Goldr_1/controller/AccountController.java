@@ -17,29 +17,24 @@ import com.nguyen.Goldr_1.model.Account;
 import com.nguyen.Goldr_1.services.AccountServices;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/users/{userId}/accounts")
 public class AccountController {
 
 	@Autowired
 	private AccountServices accountServices;
 
-	@GetMapping(value = "/name/{name}", produces = "application/json")
-	public List<Account> findByName(@PathVariable("name") String name) {
-		return accountServices.findAccountsByName(name);
+	@GetMapping()
+	public List<Account> getAccountsByUserId(@PathVariable("userId") Integer userId) {
+		return accountServices.findAccountsByUserId(userId);
 	}
 
-//	@GetMapping
-//	public List<Account> getAllAccounts() {
-//		return accountServices.getAllAccounts();
-//	}
+	@GetMapping("/{id}")
+	public Optional<Account> getAccountById(@PathVariable("userId") Integer userId, @PathVariable("id") Integer id) {
+		return accountServices.findAccountByUserId(userId, id);
+	}
 
-//	@GetMapping("/{id}")
-//	public Optional<Account> getAccountById(@PathVariable("id") Integer id) {
-//		return accountServices.getAccountById(id);
-//	}
-
-	@PostMapping("/users/{id}/accounts")
-	public void createAccount(@PathVariable("id") Integer userId, @RequestBody Account account) {
+	@PostMapping
+	public void createAccount(@PathVariable("userId") Integer userId, @RequestBody Account account) {
 		accountServices.addAccount(userId, account);
 	}
 

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.nguyen.Goldr_1.model.Account;
 import com.nguyen.Goldr_1.model.User;
@@ -20,18 +21,12 @@ public class AccountServices {
 	@Autowired
 	private UserRepo userRepo;
 
-	public List<Account> findAccountsByName(String name) {
-		return accountRepo.findByName(name);
-	}
-	
-//	public List<Account> getAllAccounts() {
-//		List<Account> accounts = new ArrayList<Account>();
-//		accountRepo.findAll().forEach(accounts::add);
-//		return accounts;
-//	}
+    public List<Account> findAccountsByUserId(Integer userId) {
+        return accountRepo.findByUserId(userId);
+    }
 
-	public Optional<Account> getAccountById(Integer id) {
-		return accountRepo.findById(id);
+	public Optional<Account> findAccountByUserId(Integer userId, Integer id) {
+		return accountRepo.findByIdAndUserId(userId, id);
 	}
 
 	public void addAccount(Integer userId, Account account) {
