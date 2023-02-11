@@ -38,19 +38,15 @@ public class AccountController {
 		accountServices.addAccount(userId, account);
 	}
 
-//	@PostMapping
-//	public void createAccount(@RequestBody Account account, @RequestBody Integer userId) {
-//		accountServices.addAccount(account, userId);
-//	}
-//
-//	@PutMapping("/{id}")
-//	public void updateAccount(@PathVariable("id") Integer id, @RequestBody Account account) {
-//		accountServices.updateAccount(id, account);
-//	}
-//
-//	@DeleteMapping("/{id}")
-//	public void deleteAccount(@PathVariable("id") Integer id) {
-//		accountServices.deleteAccount(id);
-//	}
+	@PutMapping("/{id}")
+	public void updateAccount(@PathVariable("userId") Integer userId, @PathVariable("id") Integer id,
+			@RequestBody Account account) {
+		accountServices.updateAccount(userId, id, account);
+	}
+
+	@DeleteMapping("/{id}")
+	public void deleteAccount(@PathVariable("id") Integer id) {
+		accountServices.deleteAccount(id);
+	}
 
 }

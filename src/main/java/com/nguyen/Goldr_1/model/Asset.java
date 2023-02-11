@@ -27,7 +27,7 @@ public class Asset implements Serializable {
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child txns if the parent asset is deleted
 //	fetch type is defaulted to LAZY, and child Txns are not loaded along with the parent Asset
-	@OneToMany(mappedBy = "asset", targetEntity = Txn.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "asset", targetEntity = Txn.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Txn> txns;
 
 	public Asset() {

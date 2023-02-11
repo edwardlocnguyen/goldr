@@ -1,12 +1,10 @@
 package com.nguyen.Goldr_1.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.nguyen.Goldr_1.model.Account;
 import com.nguyen.Goldr_1.model.User;
@@ -21,12 +19,12 @@ public class AccountServices {
 	@Autowired
 	private UserRepo userRepo;
 
-    public List<Account> findAccountsByUserId(Integer userId) {
-        return accountRepo.findByUserId(userId);
-    }
+	public List<Account> findAccountsByUserId(Integer userId) {
+		return accountRepo.findByUserId(userId);
+	}
 
 	public Optional<Account> findAccountByUserId(Integer userId, Integer id) {
-		return accountRepo.findByIdAndUserId(userId, id);
+		return accountRepo.findByUserIdAndId(userId, id);
 	}
 
 	public void addAccount(Integer userId, Account account) {
@@ -37,16 +35,8 @@ public class AccountServices {
 		}
 	}
 
-//	public void addAccount(Account account, Integer userId) {
-//		Optional<User> user = userRepo.findById(userId);
-//		if (user.isPresent()) {
-//			account.setUser(user.get());
-//			accountRepo.save(account);
-//		}
-//	}
-
-	public void updateAccount(Integer id, Account account) {
-		Optional<Account> accountData = accountRepo.findById(id);
+	public void updateAccount(Integer userId, Integer id, Account account) {
+		Optional<Account> accountData = accountRepo.findByUserIdAndId(userId, id);
 
 		if (accountData.isPresent()) {
 			Account _account = accountData.get();
@@ -58,6 +48,9 @@ public class AccountServices {
 	}
 
 	public void deleteAccount(Integer id) {
+		System.out.println("id: " + id);
+		Optional<Account> account = accountRepo.findById(id);
+		System.out.println("id: " + id);
 		accountRepo.deleteById(id);
 	}
 }

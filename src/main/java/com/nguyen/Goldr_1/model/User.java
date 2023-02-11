@@ -36,8 +36,9 @@ public class User implements Serializable {
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child accounts if the parent user is deleted
 //	fetch type is defaulted to LAZY, and child Accounts are not loaded along with the parent User
+//		update: needed to change to LAZY to delete accounts
 	@JsonManagedReference
-	@OneToMany(mappedBy = "user", targetEntity = Account.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", targetEntity = Account.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Account> accounts;
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child accounts if the parent user is deleted

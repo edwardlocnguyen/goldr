@@ -35,7 +35,8 @@ public class Account implements Serializable {
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child amounts if the parent account is deleted
 //	fetch type is defaulted to LAZY, and child Txns are not loaded along with the parent Account
-	@OneToMany(mappedBy = "account", targetEntity = Txn.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//		update: needed to change to LAZY to delete accounts
+	@OneToMany(mappedBy = "account", targetEntity = Txn.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Txn> txns;
 
 	public Account() {
