@@ -23,11 +23,7 @@ public class UserController {
 	@Autowired
 	private UserServices userServices;
 
-	@GetMapping("/age/{email}")
-	public List<User> findByAge(@PathVariable("email") String email) {
-		return userServices.findUsersByAge(email);
-	}
-
+//	CRUD methods
 	@GetMapping
 	public List<User> getAllUsers() {
 		return userServices.getAllUsers();
@@ -51,6 +47,12 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public void deleteUser(@PathVariable("id") Integer id) {
 		userServices.deleteUser(id);
+	}
+
+//	more complex methods
+	@GetMapping("/{id}/accounts-and-amounts")
+	public List<Object[]> getAccountsAmountsByUserId(@PathVariable("id") Integer userId) {
+		return userServices.getAccountsAmountsByUserId(userId);
 	}
 
 }

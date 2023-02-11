@@ -16,10 +16,7 @@ public class UserServices {
 	@Autowired
 	private UserRepo userRepo;
 
-    public List<User> findUsersByAge(String email) {
-        return userRepo.findByAge(email);
-    }
-	
+//	CRUD methods
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<User>();
 		userRepo.findAll().forEach(users::add);
@@ -57,6 +54,11 @@ public class UserServices {
 
 	public void deleteUser(Integer id) {
 		userRepo.deleteById(id);
+	}
+
+//	more complex methods
+	public List<Object[]> getAccountsAmountsByUserId(Integer userId) {
+		return userRepo.findAccountsAmountsByUserId(userId);
 	}
 
 }
