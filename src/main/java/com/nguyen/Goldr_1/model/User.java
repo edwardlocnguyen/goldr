@@ -3,6 +3,9 @@ package com.nguyen.Goldr_1.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
+@JsonSerialize
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +36,7 @@ public class User implements Serializable {
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child accounts if the parent user is deleted
 //	fetch type is defaulted to LAZY, and child Accounts are not loaded along with the parent User
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user", targetEntity = Account.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Account> accounts;
 //	mappedBy creates the join column in the target table

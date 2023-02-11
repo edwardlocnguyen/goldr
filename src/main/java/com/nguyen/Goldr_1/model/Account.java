@@ -3,6 +3,9 @@ package com.nguyen.Goldr_1.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,6 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
+@JsonSerialize
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -24,6 +28,7 @@ public class Account implements Serializable {
 
 	private String name;
 
+	@JsonBackReference
 	@ManyToOne(targetEntity = User.class)
 	private User user;
 
