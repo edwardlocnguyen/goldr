@@ -61,4 +61,8 @@ public class UserServices {
 		return userRepo.findAccountsAmountsByUserId(userId);
 	}
 
+	public List<Object[]> getAssetsAmountsByUserId(Integer userId) {
+		return userRepo.findAssetsAmountsByUserId(userId);
+	}
+
 }

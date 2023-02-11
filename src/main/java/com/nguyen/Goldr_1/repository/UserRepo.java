@@ -18,4 +18,12 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 			+ "ON a.id = t1.account_id AND t.date = t1.max_date " + "WHERE a.user_id = :userId "
 			+ "GROUP BY a.id, a.name", nativeQuery = true)
 	List<Object[]> findAccountsAmountsByUserId(@Param("userId") Integer userId);
+
+	@Query(value = "SELECT a.id, a.name, SUM(t.amount) as total_amount FROM asset a "
+			+ "INNER JOIN Txn t ON a.id = t.asset_id "
+			+ "INNER JOIN (SELECT asset_id, MAX(date) as max_date FROM Txn GROUP BY asset_id) t1 "
+			+ "ON a.id = t1.asset_id AND t.date = t1.max_date " + "WHERE t.user_id = :userId "
+			+ "GROUP BY a.id, a.name", nativeQuery = true)
+	List<Object[]> findAssetsAmountsByUserId(@Param("userId") Integer userId);
+
 }

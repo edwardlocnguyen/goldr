@@ -50,9 +50,14 @@ public class UserController {
 	}
 
 //	more complex methods
-	@GetMapping("/{id}/accounts-and-amounts")
+	@GetMapping("/{id}/accounts-amounts")
 	public List<Object[]> getAccountsAmountsByUserId(@PathVariable("id") Integer userId) {
 		return userServices.getAccountsAmountsByUserId(userId);
+	}
+
+	@GetMapping("/{id}/assets-amounts")
+	public List<Object[]> getAssetsAmountsByUserId(@PathVariable("id") Integer userId) {
+		return userServices.getAssetsAmountsByUserId(userId);
 	}
 
 }
