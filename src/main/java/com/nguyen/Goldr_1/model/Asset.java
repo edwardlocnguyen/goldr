@@ -3,6 +3,8 @@ package com.nguyen.Goldr_1.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,6 +29,7 @@ public class Asset implements Serializable {
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child txns if the parent asset is deleted
 //	fetch type is defaulted to LAZY, and child Txns are not loaded along with the parent Asset
+	@JsonManagedReference
 	@OneToMany(mappedBy = "asset", targetEntity = Txn.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Txn> txns;
 

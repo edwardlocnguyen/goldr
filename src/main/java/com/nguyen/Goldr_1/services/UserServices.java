@@ -58,5 +58,14 @@ public class UserServices {
 	public void deleteUser(Integer id) {
 		userRepo.deleteById(id);
 	}
+	
+//	more complex methods
+	public List<Object[]> getAccountsAmountsByUserId(Integer userId) {
+		return userRepo.findAccountsAmountsByUserId(userId);
+	}
+	
+//	public List<Object[]> getAssetsAmountsByUserId(Integer userId) {
+//		return userRepo.findAssetsAmountsByUserId(userId);
+//	}
 
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import jakarta.persistence.CascadeType;
@@ -36,6 +37,7 @@ public class Account implements Serializable {
 //	cascade ALL deletes all child amounts if the parent account is deleted
 //	fetch type is defaulted to LAZY, and child Txns are not loaded along with the parent Account
 //		update: needed to change to LAZY to delete accounts
+	@JsonManagedReference
 	@OneToMany(mappedBy = "account", targetEntity = Txn.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Txn> txns;
 
