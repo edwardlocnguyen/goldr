@@ -3,6 +3,8 @@ package com.nguyen.Goldr_1.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,11 +23,16 @@ public class Txn implements Serializable {
 
 	private double amount;
 	private LocalDate date;
-
+	
+	@JsonBackReference
 	@ManyToOne(targetEntity = Account.class)
 	private Account account;
+	
+	@JsonBackReference
 	@ManyToOne(targetEntity = Asset.class)
 	private Asset asset;
+	
+	@JsonBackReference
 	@ManyToOne(targetEntity = User.class)
 	private User user;
 

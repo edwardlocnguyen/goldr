@@ -32,7 +32,8 @@ public class User implements Serializable {
 	private String password;
 	private String email;
 	private Integer age;
-
+	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user", targetEntity = Asset.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Asset> assets;
 
@@ -40,11 +41,13 @@ public class User implements Serializable {
 //	cascade ALL deletes all child accounts if the parent user is deleted
 //	fetch type is defaulted to LAZY, and child Accounts are not loaded along with the parent User
 //		update: needed to change to LAZY to delete accounts
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user", targetEntity = Account.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Account> accounts;
 
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child accounts if the parent user is deleted
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user", targetEntity = Txn.class, cascade = CascadeType.ALL)
 	private List<Txn> txns;
 

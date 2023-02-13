@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,12 +28,14 @@ public class Asset implements Serializable {
 
 	private String name;
 
+	@JsonBackReference
 	@ManyToOne(targetEntity = User.class)
 	private User user;
 
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child txns if the parent asset is deleted
 //	fetch type is defaulted to LAZY, and child Txns are not loaded along with the parent Asset
+	@JsonManagedReference
 	@OneToMany(mappedBy = "asset", targetEntity = Txn.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Txn> txns;
 
