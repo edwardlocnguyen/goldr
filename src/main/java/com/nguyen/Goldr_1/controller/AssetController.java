@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nguyen.Goldr_1.model.Asset;
 import com.nguyen.Goldr_1.services.AssetServices;
 
-@RestController
-//@Controller
+//@RestController
+@Controller
 //@RequestMapping("/users/{userId}/assets")
-@RequestMapping("/assets")
+@RequestMapping("/users/{userId}/assets")
 public class AssetController {
 
 	@Autowired
@@ -32,10 +33,17 @@ public class AssetController {
 		return assetServices.getAllAssets();
 	}
 
-	@GetMapping("/{id}")
-	public Optional<Asset> getAssetById(@PathVariable("id") Integer id) {
-		return assetServices.getAssetById(id);
+//	@GetMapping("/{id}")
+//	public Optional<Asset> getAssetById(@PathVariable("id") Integer id) {
+//		return assetServices.getAssetById(id);
+//	}
+	
+	@GetMapping("/form")
+	public String getAssetForm(Model model) {
+	    model.addAttribute("asset", new Asset());
+	    return "assetForm";
 	}
+
 
 //	@PostMapping("/post")
 //	public String createAsset(@PathVariable("userId") Integer userId, @ModelAttribute("asset") Asset asset) {
@@ -45,7 +53,7 @@ public class AssetController {
 	
 	@PostMapping("/post")
 	public String createAsset(@ModelAttribute("asset") Asset asset) {
-		assetServices.addAsset(asset);
+//		assetServices.addAsset(asset);
 		return "assetForm";
 	}
 
