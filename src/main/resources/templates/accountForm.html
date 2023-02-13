@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Create Account</title>
+</head>
+<body>
+	<h1>Create Account</h1>
+	<form method="POST" th:object="${account}" id="accountForm"
+		th:action="@{'/users/' + ${userId} + '/accounts/post'}">
+		<input type="hidden" id="userId" name="userId" value="" />
+		<p>
+			<label for="name">Account Name:</label> <input type="text" id="name"
+				name="name" th:field="*{name}" />
+		</p>
+		<input type="submit" value="Create" />
+	</form>
+	<script>
+		var userId = window.location.pathname.split("/")[2];
+		document.getElementById("userId").value = parseInt(userId);
+	</script>
+</body>
+</html>
