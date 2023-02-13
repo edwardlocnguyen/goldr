@@ -3,6 +3,7 @@ package com.nguyen.Goldr_1.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -18,7 +19,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
-@JsonSerialize
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,13 +33,16 @@ public class User implements Serializable {
 	private String email;
 	private Integer age;
 
+	@OneToMany(mappedBy = "user", targetEntity = Asset.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Asset> assets;
+
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child accounts if the parent user is deleted
 //	fetch type is defaulted to LAZY, and child Accounts are not loaded along with the parent User
 //		update: needed to change to LAZY to delete accounts
-	@JsonManagedReference
 	@OneToMany(mappedBy = "user", targetEntity = Account.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Account> accounts;
+
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child accounts if the parent user is deleted
 	@OneToMany(mappedBy = "user", targetEntity = Txn.class, cascade = CascadeType.ALL)
@@ -50,18 +53,20 @@ public class User implements Serializable {
 		this.password = "";
 		this.email = "";
 		this.age = 0;
+		this.assets = null;
 		this.accounts = null;
 		this.txns = null;
 	}
 
-	public User(int id, String username, String password, String email, Integer age, List<Account> accounts,
-			List<Txn> txns) {
+	public User(int id, String username, String password, String email, Integer age, List<Asset> assets,
+			List<Account> accounts, List<Txn> txns) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.age = age;
+		this.assets = assets;
 		this.accounts = accounts;
 		this.txns = txns;
 	}
@@ -106,6 +111,14 @@ public class User implements Serializable {
 		this.age = age;
 	}
 
+	public List<Asset> getAssets() {
+		return assets;
+	}
+
+	public void setAssets(List<Asset> assets) {
+		this.assets = assets;
+	}
+
 	public List<Account> getAccounts() {
 		return accounts;
 	}
@@ -129,7 +142,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", age="
-				+ age + ", accounts=" + accounts + ", txns=" + txns + "]";
+				+ age + ", assets=" + assets + ", accounts=" + accounts + ", txns=" + txns + "]";
 	}
 
 }

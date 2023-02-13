@@ -3,12 +3,15 @@ package com.nguyen.Goldr_1.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -24,6 +27,9 @@ public class Asset implements Serializable {
 
 	private String name;
 
+	@ManyToOne(targetEntity = User.class)
+	private User user;
+
 //	mappedBy creates the join column in the target table
 //	cascade ALL deletes all child txns if the parent asset is deleted
 //	fetch type is defaulted to LAZY, and child Txns are not loaded along with the parent Asset
@@ -32,13 +38,15 @@ public class Asset implements Serializable {
 
 	public Asset() {
 		this.name = "";
+		this.user = null;
 		this.txns = null;
 	}
 
-	public Asset(int id, String name, List<Txn> txns) {
+	public Asset(int id, String name, User user, List<Txn> txns) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.user = user;
 		this.txns = txns;
 	}
 
@@ -58,6 +66,14 @@ public class Asset implements Serializable {
 		this.name = name;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public List<Txn> getTxns() {
 		return txns;
 	}
@@ -72,7 +88,7 @@ public class Asset implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Asset [id=" + id + ", name=" + name + ", txns=" + txns + "]";
+		return "Asset [id=" + id + ", name=" + name + ", user=" + user + ", txns=" + txns + "]";
 	}
 
 }

@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nguyen.Goldr_1.model.Asset;
+import com.nguyen.Goldr_1.model.User;
 import com.nguyen.Goldr_1.repository.AssetRepo;
+import com.nguyen.Goldr_1.repository.UserRepo;
 
 @Service
 public class AssetServices {
 	@Autowired
 	private AssetRepo assetRepo;
+	@Autowired
+	private UserRepo userRepo;
 
 //	probably need to fix to return all assets of a user
 	public List<Asset> getAllAssets() {
@@ -26,6 +30,15 @@ public class AssetServices {
 		return assetRepo.findById(id);
 	}
 
+//	public void addAsset(Integer userId, Asset asset) {
+//		Optional<User> user = userRepo.findById(userId);
+//		
+//		if (user.isPresent()) {
+//			asset.setUser(user.get());
+//			assetRepo.save(asset);
+//		}
+//	}
+	
 	public void addAsset(Asset asset) {
 		assetRepo.save(asset);
 	}
