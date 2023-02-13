@@ -14,48 +14,55 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nguyen.Goldr_1.model.Asset;
+import com.nguyen.Goldr_1.model.User;
+import com.nguyen.Goldr_1.repository.UserRepo;
 import com.nguyen.Goldr_1.services.AssetServices;
 
 //@RestController
 @Controller
-//@RequestMapping("/users/{userId}/assets")
 @RequestMapping("/users/{userId}/assets")
 public class AssetController {
 
 	@Autowired
 	private AssetServices assetServices;
+	@Autowired
+	private UserRepo userRepo;
 
 	@GetMapping
 	public List<Asset> getAllAssets() {
 		return assetServices.getAllAssets();
 	}
 
-//	@GetMapping("/{id}")
-//	public Optional<Asset> getAssetById(@PathVariable("id") Integer id) {
-//		return assetServices.getAssetById(id);
-//	}
-	
+	@GetMapping("/{id}")
+	public Optional<Asset> getAssetById(@PathVariable("id") Integer id) {
+		return assetServices.getAssetById(id);
+	}
+
 	@GetMapping("/form")
 	public String getAssetForm(Model model) {
-	    model.addAttribute("asset", new Asset());
-	    return "assetForm";
-	}
-
-
-//	@PostMapping("/post")
-//	public String createAsset(@PathVariable("userId") Integer userId, @ModelAttribute("asset") Asset asset) {
-//		assetServices.addAsset(userId, asset);
-//		return "assetForm";
-//	}
-	
-	@PostMapping("/post")
-	public String createAsset(@ModelAttribute("asset") Asset asset) {
-//		assetServices.addAsset(asset);
+		model.addAttribute("asset", new Asset());
 		return "assetForm";
 	}
+
+	@PostMapping("/post")
+	public String createAsset(@RequestParam("userId") Integer userId, @ModelAttribute("asset") Asset asset) {
+		Optional<User> user = userRepo.findById(userId);
+		if (user.isPresent()) {
+			asset.setUser(user.get());
+			assetServices.addAsset(asset);
+		}
+		return "redirect:/users/user-asset/" + userId;
+	}
+
+//	@PostMapping
+//	public String createAsset(@RequestBody Asset asset) {
+//		assetServices.addAsset(asset);
+//		return "assetForm";
+//	}
 
 	@PutMapping("/{id}")
 	public void updateAsset(@PathVariable("id") Integer id, @RequestBody Asset asset) {

@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Asset</title>
+<title>Create Asset</title>
 </head>
 <body>
-    <h1>Create Asset</h1>
-    <form method="POST" th:object="${asset}">
-        <p>
-            <label for="name">Asset Name:</label>
-            <input type="text" id="name" name="name" th:field="*{name}" />
-        </p>
-        <input type="submit" value="Create" />
-    </form>
+	<h1>Create Asset</h1>
+	<form method="POST" th:object="${asset}" id="assetForm"
+		th:action="@{'/users/' + ${userId} + '/assets/post'}">
+		<input type="hidden" id="userId" name="userId" value="" />
+		<p>
+			<label for="name">Asset Name:</label> <input type="text" id="name"
+				name="name" th:field="*{name}" />
+		</p>
+		<input type="submit" value="Create" />
+	</form>
+	<script>
+		var userId = window.location.pathname.split("/")[2];
+		document.getElementById("userId").value = parseInt(userId);
+	</script>
 </body>
 </html>
