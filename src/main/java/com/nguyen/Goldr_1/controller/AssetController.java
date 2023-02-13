@@ -50,11 +50,7 @@ public class AssetController {
 
 	@PostMapping("/post")
 	public String createAsset(@RequestParam("userId") Integer userId, @ModelAttribute("asset") Asset asset) {
-		Optional<User> user = userRepo.findById(userId);
-		if (user.isPresent()) {
-			asset.setUser(user.get());
-			assetServices.addAsset(asset);
-		}
+		assetServices.addAsset(userId, asset);
 		return "redirect:/users/user-asset/" + userId;
 	}
 

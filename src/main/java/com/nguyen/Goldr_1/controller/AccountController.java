@@ -31,8 +31,6 @@ public class AccountController {
 
 	@Autowired
 	private AccountServices accountServices;
-	@Autowired
-	private UserRepo userRepo;
 
 	@GetMapping()
 	public List<Account> getAccountsByUserId(@PathVariable("userId") Integer userId) {

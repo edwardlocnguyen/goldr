@@ -38,9 +38,13 @@ public class AssetServices {
 //			assetRepo.save(asset);
 //		}
 //	}
-	
-	public void addAsset(Asset asset) {
-		assetRepo.save(asset);
+
+	public void addAsset(Integer userId, Asset asset) {
+		Optional<User> user = userRepo.findById(userId);
+		if (user.isPresent()) {
+			asset.setUser(user.get());
+			assetRepo.save(asset);
+		}
 	}
 
 	public void updateAsset(Integer id, Asset asset) {
