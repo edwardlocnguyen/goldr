@@ -36,15 +36,15 @@ public class TxnController {
 	@Autowired
 	private AccountRepo accountRepo;
 
-	@GetMapping
-	public List<Txn> getAllTxns() {
-		return txnServices.getAllTxns();
-	}
-
-	@GetMapping("/{id}")
-	public Optional<Txn> getTxnById(@PathVariable("id") Integer id) {
-		return txnServices.getTxnById(id);
-	}
+//	@GetMapping
+//	public List<Txn> getAllTxns() {
+//		return txnServices.getAllTxns();
+//	}
+//
+//	@GetMapping("/{id}")
+//	public Optional<Txn> getTxnById(@PathVariable("id") Integer id) {
+//		return txnServices.getTxnById(id);
+//	}
 
 	@GetMapping("/form")
 	public String getTxnForm(Model model, @PathVariable("userId") Integer userId) {

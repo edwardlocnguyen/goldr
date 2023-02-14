@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    var userId = window.location.pathname.split("/")[3];
-    $.get("/users/api/" + userId + "/accounts-amounts", function(data) {
+    var userId = window.location.pathname.split("/")[2];
+    $.get("/users/" + userId + "/api/accounts-amounts", function(data) {
         var count = 1;
         for (var i = 0; i < data.length; i++) {
             var account = data[i];

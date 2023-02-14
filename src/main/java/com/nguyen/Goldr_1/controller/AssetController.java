@@ -27,15 +27,15 @@ public class AssetController {
 	@Autowired
 	private AssetServices assetServices;
 
-	@GetMapping
-	public List<Asset> getAllAssets() {
-		return assetServices.getAllAssets();
-	}
-
-	@GetMapping("/{id}")
-	public Optional<Asset> getAssetById(@PathVariable("id") Integer id) {
-		return assetServices.getAssetById(id);
-	}
+//	@GetMapping
+//	public List<Asset> getAllAssets() {
+//		return assetServices.getAllAssets();
+//	}
+//
+//	@GetMapping("/{id}")
+//	public Optional<Asset> getAssetById(@PathVariable("id") Integer id) {
+//		return assetServices.getAssetById(id);
+//	}
 
 	@GetMapping("/form")
 	public String getAssetForm(Model model) {

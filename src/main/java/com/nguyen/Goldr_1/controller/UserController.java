@@ -21,48 +21,48 @@ import org.springframework.ui.Model;
 
 //@RestControllers
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/users/{id}")
 public class UserController {
 
 	@Autowired
 	private UserServices userServices;
 
 //	CRUD methods
-	@GetMapping
-	public List<User> getAllUsers() {
-		return userServices.getAllUsers();
-	}
+//	@GetMapping
+//	public List<User> getAllUsers() {
+//		return userServices.getAllUsers();
+//	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/home")
 	public Optional<User> getUserById(@PathVariable("id") Integer id) {
 		return userServices.getUserById(id);
 	}
 
-	@PostMapping
-	public void createUser(@RequestBody User user) {
-		userServices.addUser(user);
-	}
+//	@PostMapping
+//	public void createUser(@RequestBody User user) {
+//		userServices.addUser(user);
+//	}
 
-	@PutMapping("/{id}")
+	@PutMapping
 	public void updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
 		userServices.updateUser(id, user);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping
 	public void deleteUser(@PathVariable("id") Integer id) {
 		userServices.deleteUser(id);
 	}
 
 //	mapping to pages that use methods in UserControllerJSON
-	@GetMapping("/user-account/{userId}")
-	public String userAccount(@PathVariable("userId") Integer userId, Model model) {
-		model.addAttribute("userId", userId.toString());
+	@GetMapping("/accounts-amounts")
+	public String userAccount(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("id", id.toString());
 		return "userAccount";
 	}
 
-	@GetMapping("/user-asset/{userId}")
-	public String userAsset(@PathVariable("userId") Integer userId, Model model) {
-		model.addAttribute("userId", userId.toString());
+	@GetMapping("/assets-amounts")
+	public String userAsset(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("id", id.toString());
 		return "userAsset";
 	}
 

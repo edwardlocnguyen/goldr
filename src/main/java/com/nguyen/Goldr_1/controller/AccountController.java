@@ -27,15 +27,15 @@ public class AccountController {
 	@Autowired
 	private AccountServices accountServices;
 
-	@GetMapping()
-	public List<Account> getAllAccounts() {
-		return accountServices.getAllAccounts();
-	}
-
-	@GetMapping("/{id}")
-	public Optional<Account> getAccountById(@PathVariable("id") Integer id) {
-		return accountServices.getAccountById(id);
-	}
+//	@GetMapping()
+//	public List<Account> getAllAccounts() {
+//		return accountServices.getAllAccounts();
+//	}
+//
+//	@GetMapping("/{id}")
+//	public Optional<Account> getAccountById(@PathVariable("id") Integer id) {
+//		return accountServices.getAccountById(id);
+//	}
 
 	@GetMapping("/form")
 	public String getAccountForm(Model model) {
