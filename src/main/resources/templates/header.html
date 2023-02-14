@@ -34,15 +34,15 @@
 				</div>
 			</div>
 		</nav>
+		<script>
+			var userId = window.location.pathname.split("/")[2];
+
+			var accountsLink = document.getElementById("accounts-link");
+			accountsLink.href = "/users/" + userId + "/accounts-amounts";
+
+			var assetsLink = document.getElementById("assets-link");
+			assetsLink.href = "/users/" + userId + "/assets-amounts";
+		</script>
 	</div>
-	<script>
-		var userId = window.location.pathname.split("/")[2];
-
-		var accountsLink = document.getElementById("accounts-link");
-		accountsLink.href = "/users/" + userId + "/accounts-amounts";
-
-		var assetsLink = document.getElementById("assets-link");
-		assetsLink.href = "/users/" + userId + "/assets-amounts";
-	</script>
 </body>
 </html>
