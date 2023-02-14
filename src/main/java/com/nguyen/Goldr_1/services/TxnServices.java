@@ -41,13 +41,17 @@ public class TxnServices {
 	public void addTxn(Integer userId, Txn txn) {
 		Optional<User> user = userRepo.findById(userId);
 		if (user.isPresent()) {
-			Optional<Asset> asset = assetRepo.findById(txn.getAsset().getId());
-			Optional<Account> account = accountRepo.findById(txn.getAccount().getId());
-			if (asset.isPresent() && account.isPresent()) {
-				txn.setUser(user.get());
-				txn.setAsset(asset.get());
-				txn.setAccount(account.get());
-				txnRepo.save(txn);
+			try {
+				Optional<Asset> asset = assetRepo.findById(txn.getAsset().getId());
+				Optional<Account> account = accountRepo.findById(txn.getAccount().getId());
+				if (asset.isPresent() && account.isPresent()) {
+					txn.setUser(user.get());
+					txn.setAsset(asset.get());
+					txn.setAccount(account.get());
+					txnRepo.save(txn);
+				}
+			} catch (NullPointerException e) {
+				System.out.println("Asset or account is null");
 			}
 		}
 	}

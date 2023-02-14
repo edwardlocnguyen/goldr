@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,11 +29,12 @@ public class User implements Serializable {
 	private int id;
 
 	@Column(unique = true)
+	@Nonnull
 	private String username;
 	private String password;
 	private String email;
 	private Integer age;
-	
+
 	@JsonManagedReference
 	@OneToMany(mappedBy = "user", targetEntity = Asset.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Asset> assets;

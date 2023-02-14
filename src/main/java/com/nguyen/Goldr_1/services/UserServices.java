@@ -24,7 +24,12 @@ public class UserServices {
 	}
 
 	public Optional<User> getUserById(Integer id) {
-		return userRepo.findById(id);
+		try {
+			return userRepo.findById(id);
+		} catch (Exception e) {
+			System.err.println("Error occurred while getting user by ID: " + e.getMessage());
+			return Optional.empty();
+		}
 	}
 
 	public void addUser(User user) {

@@ -15,11 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.nguyen.Goldr_1.model.Asset;
-import com.nguyen.Goldr_1.model.User;
-import com.nguyen.Goldr_1.repository.UserRepo;
 import com.nguyen.Goldr_1.services.AssetServices;
 
 //@RestController
@@ -29,8 +26,6 @@ public class AssetController {
 
 	@Autowired
 	private AssetServices assetServices;
-	@Autowired
-	private UserRepo userRepo;
 
 	@GetMapping
 	public List<Asset> getAllAssets() {

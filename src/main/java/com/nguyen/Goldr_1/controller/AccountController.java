@@ -15,13 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.nguyen.Goldr_1.model.Account;
-import com.nguyen.Goldr_1.model.Asset;
-import com.nguyen.Goldr_1.model.User;
-import com.nguyen.Goldr_1.repository.UserRepo;
 import com.nguyen.Goldr_1.services.AccountServices;
 
 //@RestController
@@ -33,15 +28,15 @@ public class AccountController {
 	private AccountServices accountServices;
 
 	@GetMapping()
-	public List<Account> getAccountsByUserId(@PathVariable("userId") Integer userId) {
-		return accountServices.findAccountsByUserId(userId);
+	public List<Account> getAllAccounts() {
+		return accountServices.getAllAccounts();
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Account> getAccountById(@PathVariable("userId") Integer userId, @PathVariable("id") Integer id) {
-		return accountServices.findAccountByUserId(userId, id);
+	public Optional<Account> getAccountById(@PathVariable("id") Integer id) {
+		return accountServices.getAccountById(id);
 	}
-	
+
 	@GetMapping("/form")
 	public String getAccountForm(Model model) {
 		model.addAttribute("account", new Account());
@@ -60,9 +55,8 @@ public class AccountController {
 //	}
 
 	@PutMapping("/{id}")
-	public void updateAccount(@PathVariable("userId") Integer userId, @PathVariable("id") Integer id,
-			@RequestBody Account account) {
-		accountServices.updateAccount(userId, id, account);
+	public void updateAccount(@PathVariable("id") Integer id, @RequestBody Account account) {
+		accountServices.updateAccount(id, account);
 	}
 
 	@DeleteMapping("/{id}")

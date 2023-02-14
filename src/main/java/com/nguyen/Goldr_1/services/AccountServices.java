@@ -1,5 +1,6 @@
 package com.nguyen.Goldr_1.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +20,14 @@ public class AccountServices {
 	@Autowired
 	private UserRepo userRepo;
 
-	public List<Account> findAccountsByUserId(Integer userId) {
-		return accountRepo.findByUserId(userId);
+	public List<Account> getAllAccounts() {
+		List<Account> accounts = new ArrayList<Account>();
+		accountRepo.findAll().forEach(accounts::add);
+		return accounts;
 	}
 
-	public Optional<Account> findAccountByUserId(Integer userId, Integer id) {
-		return accountRepo.findByUserIdAndId(userId, id);
+	public Optional<Account> getAccountById(Integer id) {
+		return accountRepo.findById(id);
 	}
 
 	public void addAccount(Integer userId, Account account) {
@@ -35,8 +38,8 @@ public class AccountServices {
 		}
 	}
 
-	public void updateAccount(Integer userId, Integer id, Account account) {
-		Optional<Account> accountData = accountRepo.findByUserIdAndId(userId, id);
+	public void updateAccount(Integer id, Account account) {
+		Optional<Account> accountData = accountRepo.findById(id);
 
 		if (accountData.isPresent()) {
 			Account _account = accountData.get();
@@ -48,9 +51,6 @@ public class AccountServices {
 	}
 
 	public void deleteAccount(Integer id) {
-		System.out.println("id: " + id);
-		Optional<Account> account = accountRepo.findById(id);
-		System.out.println("id: " + id);
 		accountRepo.deleteById(id);
 	}
 }

@@ -13,10 +13,12 @@ import java.util.Optional;
 @Repository
 public interface AccountRepo extends JpaRepository<Account, Integer> {
 
-	@Query("SELECT a FROM Account a WHERE a.user.id = :userId")
-	List<Account> findByUserId(@Param("userId") Integer userId);
+	List<Account> findByUserId(Integer userId);
 
-	@Query("SELECT a FROM Account a WHERE a.id = :id AND a.user.id = :userId")
-	Optional<Account> findByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id);
+//	@Query("SELECT a FROM Account a WHERE a.user.id = :userId")
+//	List<Account> findByUserId(@Param("userId") Integer userId);
+//
+//	@Query("SELECT a FROM Account a WHERE a.id = :id AND a.user.id = :userId")
+//	Optional<Account> findByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id);
 
 }
