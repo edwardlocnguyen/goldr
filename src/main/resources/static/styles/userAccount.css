@@ -6,3 +6,31 @@ body {
 	font-family: 'Aboreto', cursive;
 	font-family: 'Abril Fatface', cursive;
 }
+
+#title_div {
+	display: flex;
+	justify-content: center;
+	margin: 30px auto;
+}
+
+#table_card {
+	width: 80%;
+	margin: 1% auto;
+}
+
+#table_card-body {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px !important;
+	margin: 0px 15% 0px 70%;
+}
+
+#table_card_body_total {
+	margin: 0% 0% 17px 0%;
+}
+
+#other_cards {
+	width: 80%;
+	margin: 1% auto;
+}

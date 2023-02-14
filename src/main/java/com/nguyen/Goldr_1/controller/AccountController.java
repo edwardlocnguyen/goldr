@@ -46,7 +46,7 @@ public class AccountController {
 	@PostMapping("/post")
 	public String createAccount(@RequestParam("userId") Integer userId, @ModelAttribute("account") Account account) {
 		accountServices.addAccount(userId, account);
-		return "redirect:/users/user-account/" + userId;
+		return "redirect:/users/" + userId + "/accounts-amounts";
 	}
 
 //	@PostMapping
