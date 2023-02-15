@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,11 +61,18 @@ public class AccountController {
 		accountServices.updateAccount(id, account);
 	}
 
-//	request param userId needs to match name=userId in the form
 	@DeleteMapping("/{id}")
-	public String deleteAccount(@RequestParam("userId") Integer userId, @PathVariable("id") Integer id) {
-		accountServices.deleteAccount(id);
-		return "redirect:/users/" + userId + "/accounts-amounts";
+	public ResponseEntity<?> deleteAccount(@RequestParam("userId") Integer userId, @PathVariable("id") Integer accountId) {
+	    accountServices.deleteAccount(accountId);
+	    return ResponseEntity.ok().build();
 	}
+
+	
+//	request param userId needs to match name=userId in the form
+//	@DeleteMapping("/{id}")
+//	public String deleteAccount(@RequestParam("userId") Integer userId, @PathVariable("id") Integer id) {
+//		accountServices.deleteAccount(id);
+//		return "redirect:/users/" + userId + "/accounts-amounts";
+//	}
 
 }
