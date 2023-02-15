@@ -25,6 +25,12 @@ public class AccountServices {
 		accountRepo.findAll().forEach(accounts::add);
 		return accounts;
 	}
+	
+	public List<Account> getAccountsByUserId(Integer userId) {
+		List<Account> accounts = new ArrayList<Account>();
+		accounts = accountRepo.findByUserId(userId);
+		return accounts;
+	}
 
 	public Optional<Account> getAccountById(Integer id) {
 		return accountRepo.findById(id);

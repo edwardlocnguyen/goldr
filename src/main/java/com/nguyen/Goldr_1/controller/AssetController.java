@@ -23,7 +23,9 @@ import com.nguyen.Goldr_1.services.AssetServices;
 @Controller
 @RequestMapping("/users/{userId}/assets")
 public class AssetController {
-
+	
+	private static final String ASSET_FORM = "assetForm";
+	
 	@Autowired
 	private AssetServices assetServices;
 
@@ -40,7 +42,7 @@ public class AssetController {
 	@GetMapping("/form")
 	public String getAssetForm(Model model) {
 		model.addAttribute("asset", new Asset());
-		return "assetForm";
+		return ASSET_FORM;
 	}
 
 	@PostMapping("/post")

@@ -24,7 +24,7 @@ import org.springframework.ui.Model;
 @Controller
 @RequestMapping("/users/{id}")
 public class UserController {
-
+	
 	@Autowired
 	private UserServices userServices;
 

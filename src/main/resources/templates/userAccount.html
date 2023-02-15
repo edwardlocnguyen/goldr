@@ -18,9 +18,9 @@
 <body>
 	<div th:replace="header :: header"></div>
 	<div id=title_div>
-		<h4>Financial Accounts</h4>
+		<h4>Account Overview</h4>
 	</div>
-	<div id="table_card">
+	<div id="table_div">
 		<div class="row row-cols-1 row-cols-md-1 g-4">
 			<div class="col">
 				<div id="each_card"
@@ -30,7 +30,7 @@
 						<thead>
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Name</th>
+								<th scope="col">Account Name</th>
 								<th scope="col">Asset Type</th>
 								<th scope="col">Amount</th>
 							</tr>
@@ -39,15 +39,28 @@
 						</tbody>
 					</table>
 					<div id="table_card-body" class="card-body">
-						<h5 id="table_card_body_total">Total:</h5>
-						<p>$6,200.01</p>
+						<h5 id="table_card_body_total_text">Total:</h5>
+						<p id="table_card_Body_total_value">$6,200.01</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="other_cards">
-		<div class="row row-cols-1 row-cols-md-2 g-4">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			<div class="col">
+				<div class="card text-bg-dark mb-3 border-light h-100">
+					<div class="card-body">
+						<div class="mb-3">
+							<p>Manage Accounts</p>
+						</div>
+						<div class="col-auto">
+							<ul id="asset_list">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="col">
 				<div class="card text-bg-dark mb-3 border-light h-100">
 					<div class="card-body">
@@ -56,7 +69,7 @@
 							<div class="mb-3">
 								<input type="hidden" id="userId" name="userId" value="" /> <label
 									for="name" class="form-label">Create New Account</label> <input
-									type="text" class="form-control" id="name" th:field="*{name}"
+									type="text" class="form-control" id="name" name="name" th:field="*{name}"
 									placeholder="Account Name">
 							</div>
 							<div class="col-auto">
@@ -73,7 +86,7 @@
 						<form>
 							<div class="mb-3">
 								<label for="exampleFormControlInput1" class="form-label">Submit
-									New Entry</label> <input type="email" class="form-control"
+									New Transaction</label> <input type="email" class="form-control"
 									id="exampleFormControlInput1" placeholder="">
 							</div>
 							<div class="col-auto">

@@ -7,15 +7,15 @@ body {
 	font-family: 'Abril Fatface', cursive;
 }
 
+#table_div {
+	width: 80%;
+	margin: 1% auto 3% auto;
+}
+
 #title_div {
 	display: flex;
 	justify-content: center;
 	margin: 30px auto;
-}
-
-#table_card {
-	width: 80%;
-	margin: 1% auto;
 }
 
 #table_card-body {
@@ -26,7 +26,7 @@ body {
 	margin: 0px 15% 0px 70%;
 }
 
-#table_card_body_total {
+#table_card_body_total_text {
 	margin: 0% 0% 17px 0%;
 }
 
