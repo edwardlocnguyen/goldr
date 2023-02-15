@@ -26,7 +26,7 @@ import com.nguyen.Goldr_1.services.TxnServices;
 
 //@RestController
 @Controller
-@RequestMapping("users/{userId}/txns")
+@RequestMapping("users/{userId}/txns") //	all ids are user ids for testing!!!
 public class TxnController {
 
 	@Autowired
@@ -50,16 +50,19 @@ public class TxnController {
 	public String getTxnForm(Model model, @PathVariable("userId") Integer userId) {
 		List<Asset> userAssets = assetRepo.findByUserId(userId);
 		List<Account> userAccounts = accountRepo.findByUserId(userId);
+		
 		model.addAttribute("txn", new Txn());
 		model.addAttribute("userAssets", userAssets);
 		model.addAttribute("userAccounts", userAccounts);
+		
 		return "txnForm";
 	}
 
 	@PostMapping("/post")
 	public String createTxn(@RequestParam("userId") Integer userId, @ModelAttribute("txn") Txn txn) {
 		txnServices.addTxn(userId, txn);
-		return "redirect:/users/user-account/" + userId;
+		
+		return "redirect:/users/" + userId + "/accounts-amounts";
 	}
 
 //	@PostMapping

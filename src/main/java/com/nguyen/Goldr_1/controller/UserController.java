@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nguyen.Goldr_1.model.Account;
+import com.nguyen.Goldr_1.model.Asset;
 import com.nguyen.Goldr_1.model.User;
+import com.nguyen.Goldr_1.repository.AccountRepo;
+import com.nguyen.Goldr_1.repository.AssetRepo;
 import com.nguyen.Goldr_1.services.UserServices;
 
 import org.springframework.ui.Model;
@@ -24,9 +27,13 @@ import org.springframework.ui.Model;
 @Controller
 @RequestMapping("/users/{id}")
 public class UserController {
-	
+
 	@Autowired
 	private UserServices userServices;
+	@Autowired
+	private AssetRepo assetRepo;
+	@Autowired
+	private AccountRepo accountRepo;
 
 //	CRUD methods
 //	@GetMapping
@@ -57,14 +64,21 @@ public class UserController {
 //	mapping to pages that use methods in UserControllerJSON
 	@GetMapping("/accounts-amounts")
 	public String userAccount(@PathVariable("id") Integer id, Model model) {
+		List<Asset> userAssets = assetRepo.findByUserId(id);
+		List<Account> userAccounts = accountRepo.findByUserId(id);
+
 		model.addAttribute("id", id.toString());
 		model.addAttribute("account", new Account());
+		model.addAttribute("userAssets", userAssets);
+		model.addAttribute("userAccounts", userAccounts);
+		
 		return "userAccount";
 	}
 
 	@GetMapping("/assets-amounts")
 	public String userAsset(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("id", id.toString());
+		
 		return "userAsset";
 	}
 
