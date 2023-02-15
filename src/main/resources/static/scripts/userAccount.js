@@ -1,18 +1,27 @@
 $(document).ready(function() {
-    var userId = window.location.pathname.split("/")[2];
+  var userId = window.location.pathname.split("/")[2];
 
-    // Get the accounts and amounts
-    $.get("/users/" + userId + "/api/accounts-amounts", function(data) {
-        var totalAmount = 0;
-        for (var i = 0; i < data.length; i++) {
-            var account = data[i];
-            var amount = parseInt(account[3]);
-            totalAmount += amount;
-            var row = "<tr><td>" + (i + 1) + "</td><td>" + account[1] + "</td><td>" + account[2] + "</td><td>$" + account[3] + "</td></tr>";
-            $("#accounts-table-body").append(row);
-        }
-        $("#table_card_body_total_value").text("$" + totalAmount.toFixed(2));
-    });
+  // Get the accounts and amounts
+  $.get("/users/" + userId + "/api/accounts-amounts", function(data) {
+    var totalAmount = 0;
+    for (var i = 0; i < data.length; i++) {
+      var account = data[i];
+      var amount = parseFloat(account[3]);
+      totalAmount += amount;
+      var row = "<tr><td>" + (i + 1) + "</td><td>" + account[1] + "</td><td>" + account[2] + "</td><td>$" + account[3] + "</td></tr>";
+      $("#accounts-table-body").append(row);
+    }
+
+    // Add empty row
+    var emptyRow = "<tr><td></td><td></td><td></td><td></td></tr>";
+    $("#accounts-table-body").append(emptyRow);
+
+    // Add total row
+    var totalRow = "<tr><td></td><td>TOTAL</td><td></td><td>$" + totalAmount.toFixed(2) + "</td></tr>";
+    $("#accounts-table-body").append(totalRow);
+
+    $("#table_card_body_total_value").text("$" + totalAmount.toFixed(2));
+  });
 
     // Get the accounts and put them in the table
     $.get("/users/" + userId + "/api/accounts", function(data) {

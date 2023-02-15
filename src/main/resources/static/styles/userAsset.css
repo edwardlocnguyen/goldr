@@ -26,19 +26,7 @@ body {
 	margin: 0px 15% 0px 70%;
 }
 
-#table_card_body_total_text {
-	margin: 0% 0% 17px 0%;
-}
-
-#table_card_body_total_value {
-	margin-right: 12%;
-}
-
 #other_cards {
 	width: 80%;
 	margin: 1% auto;
 }
-
-/* #accounts_list_card_body {
-	padding: 0%;
-} */

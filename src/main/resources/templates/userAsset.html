@@ -2,22 +2,54 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>User Assets</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/styles/userAsset.css}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Aboreto&family=Abril+Fatface&display=swap"
+	rel="stylesheet">
+<title>User Assets and Amounts</title>
 </head>
 <body>
-	<table id="assets-table">
-		<thead>
-			<tr>
-				<th>Number</th>
-				<th>Asset Name</th>
-				<th>Asset Amount</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
-
+	<div th:replace="header :: header"></div>
+	<div id=title_div>
+		<h4>Assets Overview</h4>
+	</div>
+	<div id="table_div">
+		<div class="row row-cols-1 row-cols-md-1 g-4">
+			<div class="col">
+				<div id="each_card"
+					class="card text-bg-dark mb-3 border-light h-100">
+					<table id="table"
+						class="table table-light table-striped table-hover">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Asset Name</th>
+								<th scope="col">Percentage</th>
+								<th scope="col">Amount</th>
+							</tr>
+						</thead>
+						<tbody id="assets-table-body">
+						</tbody>
+					</table>
+					<div id="table_card-body" class="card-body">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- 	script to load jQuery to perform AJAX requests -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" th:src="@{/scripts/userAsset.js}"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+		crossorigin="anonymous"></script>
 </body>
 </html>
