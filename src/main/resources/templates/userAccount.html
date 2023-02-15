@@ -86,14 +86,20 @@
 			<div class="col">
 				<div class="card text-bg-dark mb-3 border-light h-100">
 					<div class="card-body">
-						<form>
+						<form method="POST" th:object="${txn}" id="txnForm"
+							th:action="@{'/users/' + ${userIdTxn} + '/txns/post'}">
 							<div class="mb-3">
-								<label for="exampleFormControlInput1" class="form-label">Submit
-									New Transaction</label> <input type="email" class="form-control"
-									id="exampleFormControlInput1" placeholder="">
+								<input type="hidden" id="userIdTxn" name="userIdTxn" value="" />
+								<label for="amount" class="form-label">Amount</label>
+								<input
+									type="number" class="form-control" id="amount" name="amount"
+									th:field="*{amount}" step="0.01" placeholder="Enter amount">
+								<label for="date">Date</label>
+								<input type="date" id="date" name="date" th:field="*{date}" />
 							</div>
 							<div class="col-auto">
-								<button type="submit" class="btn btn-primary mb-3">Submit</button>
+								<button type="submit" value="Submit"
+									class="btn btn-primary mb-3">Submit</button>
 							</div>
 						</form>
 					</div>

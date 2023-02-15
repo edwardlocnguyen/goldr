@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nguyen.Goldr_1.model.Account;
 import com.nguyen.Goldr_1.model.Asset;
+import com.nguyen.Goldr_1.model.Txn;
 import com.nguyen.Goldr_1.model.User;
 import com.nguyen.Goldr_1.repository.AccountRepo;
 import com.nguyen.Goldr_1.repository.AssetRepo;
@@ -69,6 +70,7 @@ public class UserController {
 
 		model.addAttribute("id", id.toString());
 		model.addAttribute("account", new Account());
+		model.addAttribute("txn", new Txn());
 		model.addAttribute("userAssets", userAssets);
 		model.addAttribute("userAccounts", userAccounts);
 		

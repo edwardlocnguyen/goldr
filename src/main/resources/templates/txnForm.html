@@ -6,14 +6,15 @@
 <body>
 	<h1>Create Transaction</h1>
 	<form method="POST" th:object="${txn}" id="txnForm"
-		th:action="@{'/users/' + ${userId} + '/txns/post'}">
-		<input type="hidden" id="userId" name="userId" value="" />
+		th:action="@{'/users/' + ${userIdTxn} + '/txns/post'}">
+		<input type="hidden" id="userIdTxn" name="userIdTxn" value="" />
 		<p>
 			<label for="amount">Amount:</label> <input type="number" id="amount"
 				name="amount" th:field="*{amount}" step="0.01" />
 		</p>
 		<p>
-			<label for="date">Date:</label> <input type="date" id="date"
+			<label for="date">Date:</label>
+			<input type="date" id="date"
 				name="date" th:field="*{date}" />
 		</p>
 		<p>
@@ -40,7 +41,7 @@
 	</form>
 	<script>
 		var userId = window.location.pathname.split("/")[2];
-		document.getElementById("userId").value = parseInt(userId);
+		document.getElementById("userIdTxn").value = parseInt(userId);
 	</script>
 </body>
 </html>
