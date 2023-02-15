@@ -3,9 +3,7 @@ package com.nguyen.Goldr_1.model;
 import java.io.Serializable;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.CascadeType;

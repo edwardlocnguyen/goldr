@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nguyen.Goldr_1.model.Account;
@@ -59,9 +60,11 @@ public class AccountController {
 		accountServices.updateAccount(id, account);
 	}
 
+//	request param userId needs to match name=userId in the form
 	@DeleteMapping("/{id}")
-	public void deleteAccount(@PathVariable("id") Integer id) {
+	public String deleteAccount(@RequestParam("userId") Integer userId, @PathVariable("id") Integer id) {
 		accountServices.deleteAccount(id);
+		return "redirect:/users/" + userId + "/accounts-amounts";
 	}
 
 }

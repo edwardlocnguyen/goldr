@@ -90,24 +90,25 @@
 							th:action="@{'/users/' + ${userIdTxn} + '/txns/post'}">
 							<div class="mb-3">
 								<input type="hidden" id="userIdTxn" name="userIdTxn" value="" />
-								<label for="amount" class="form-label">Amount</label>
-								<input
+								<label for="amount" class="form-label">Amount</label> <input
 									type="number" class="form-control" id="amount" name="amount"
 									th:field="*{amount}" step="0.01" placeholder="Enter amount">
-								<label for="date">Date</label>
-								<input type="date" id="date" name="date" th:field="*{date}" />
-								<label for="account" class="form-label">Account</label>
-								<select name="account.id">
-									<option th:value="${null}" th:selected="${txn.account == null}">Select Account</option>
-									<option th:each="account : ${userAccounts}" th:value="${account.id}" th:selected="${account.id == txn.account?.id}">
-										<span th:text="${account.name}"></span>
+								<label for="date">Date</label> <input type="date" id="date"
+									name="date" th:field="*{date}" /> <label for="account"
+									class="form-label">Account</label> <select name="account.id">
+									<option th:value="${null}" th:selected="${txn.account == null}">Select
+										Account</option>
+									<option th:each="account : ${userAccounts}"
+										th:value="${account.id}"
+										th:selected="${account.id == txn.account?.id}"><span
+											th:text="${account.name}"></span>
 									</option>
-								</select>
-								<label for="asset">Asset</label>
-								<select name="asset.id">
-									<option th:value="${null}" th:selected="${txn.asset == null}">Select an Asset</option>
-									<option th:each="asset : ${userAssets}" th:value="${asset.id}" th:selected="${asset.id == txn.asset?.id}">
-										<span th:text="${asset.name}"></span>
+								</select> <label for="asset">Asset</label> <select name="asset.id">
+									<option th:value="${null}" th:selected="${txn.asset == null}">Select
+										an Asset</option>
+									<option th:each="asset : ${userAssets}" th:value="${asset.id}"
+										th:selected="${asset.id == txn.asset?.id}"><span
+											th:text="${asset.name}"></span>
 									</option>
 								</select>
 							</div>
@@ -121,6 +122,16 @@
 			</div>
 		</div>
 	</div>
+	<ol>
+		<li th:each="account : ${userAccounts}"><span
+			th:text="${account.name}"></span>
+			<form th:method="delete"
+				th:action="@{'/users/{userId}/accounts/{accountId}'(accountId=${account.id})}">
+				<input type="hidden" id="userIdDel" name="userId" th:value="${userIdDel}"> <input
+					type="hidden" name="accountId" th:value="${account.id}">
+				<button type="submit">Delete</button>
+			</form></li>
+	</ol>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" th:src="@{/scripts/userAccount.js}"></script>
 	<script

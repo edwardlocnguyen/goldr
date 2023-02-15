@@ -23,9 +23,10 @@ $(document).ready(function() {
         }
     });
 
-    // Set the userId in the create Asset form
+    // Set the userId in the create Account form
     document.getElementById("userId").value = parseInt(userId);
     // Set the userIdTxn in the create Txn form
     document.getElementById("userIdTxn").value = parseInt(userId);
-    console.log(document.getElementById("userIdTxn").value);
+    // Set the userIdTxn in the delete Account button
+    document.getElementById("userIdDel").value = parseInt(userId);
 });
