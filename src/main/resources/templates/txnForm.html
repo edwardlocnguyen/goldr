@@ -28,12 +28,13 @@
 			</select>
 		</p>
 		<p>
-			<label for="asset">Asset:</label> <select name="asset.id">
+			<label for="asset">Asset:</label>
+			<select name="asset.id">
 				<option th:value="${null}" th:selected="${txn.asset == null}">--
 					Select an Asset --</option>
 				<option th:each="asset : ${userAssets}" th:value="${asset.id}"
-					th:selected="${asset.id == txn.asset?.id}"><span
-						th:text="${asset.name}"></span>
+					th:selected="${asset.id == txn.asset?.id}">
+					<span th:text="${asset.name}"></span>
 				</option>
 			</select>
 		</p>

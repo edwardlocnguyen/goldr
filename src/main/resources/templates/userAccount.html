@@ -96,6 +96,20 @@
 									th:field="*{amount}" step="0.01" placeholder="Enter amount">
 								<label for="date">Date</label>
 								<input type="date" id="date" name="date" th:field="*{date}" />
+								<label for="account" class="form-label">Account</label>
+								<select name="account.id">
+									<option th:value="${null}" th:selected="${txn.account == null}">Select Account</option>
+									<option th:each="account : ${userAccounts}" th:value="${account.id}" th:selected="${account.id == txn.account?.id}">
+										<span th:text="${account.name}"></span>
+									</option>
+								</select>
+								<label for="asset">Asset</label>
+								<select name="asset.id">
+									<option th:value="${null}" th:selected="${txn.asset == null}">Select an Asset</option>
+									<option th:each="asset : ${userAssets}" th:value="${asset.id}" th:selected="${asset.id == txn.asset?.id}">
+										<span th:text="${asset.name}"></span>
+									</option>
+								</select>
 							</div>
 							<div class="col-auto">
 								<button type="submit" value="Submit"
