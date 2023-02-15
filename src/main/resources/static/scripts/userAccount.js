@@ -10,16 +10,15 @@ $(document).ready(function() {
         }
     });
 
-    // Get the accounts and put them in the unordered list
+    // Get the accounts and put them in the table
     $.get("/users/" + userId + "/api/accounts", function(data) {
-        var listItems = '';
-		for (var i = 0; i < data.length; i++) {
-		    var account = data[i];
-		    listItems += "<li>" + account.name + " <button class='btn btn-primary btn-sm' onclick='editAccount(" + account.id + ")'>Update</button> <button class='btn btn-danger btn-sm' onclick='deleteAccount(" + account.id + ")'>Delete</button></li>";
-		}
-		$('#asset_list').html(listItems);
+        for (var i = 0; i < data.length; i++) {
+            var account = data[i];
+            var row = "<tr><td>" + account.name + "</td><td><button class='btn btn-primary btn-sm' onclick='editAccount(" + account[0] + ")'>Update</button></td><td><button class='btn btn-danger btn-sm' onclick='deleteAccount(" + account[0] + ")'>Delete</button></td></tr>";
+            $("#accounts-list-table-body").append(row);
+        }
     });
-    
+
     // Set the userId in the create Asset form
     document.getElementById("userId").value = parseInt(userId);
 });
