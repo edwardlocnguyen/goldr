@@ -79,7 +79,10 @@ public class UserController {
 
 	@GetMapping("/assets-amounts")
 	public String userAsset(@PathVariable("id") Integer id, Model model) {
+		List<Asset> userAssets = assetRepo.findByUserId(id);
+		
 		model.addAttribute("id", id.toString());
+		model.addAttribute("userAssets", userAssets);
 		
 		return "userAsset";
 	}

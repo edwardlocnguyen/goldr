@@ -23,9 +23,9 @@ import com.nguyen.Goldr_1.services.AssetServices;
 @Controller
 @RequestMapping("/users/{userId}/assets")
 public class AssetController {
-	
+
 	private static final String ASSET_FORM = "assetForm";
-	
+
 	@Autowired
 	private AssetServices assetServices;
 
@@ -63,8 +63,9 @@ public class AssetController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteAsset(@PathVariable("id") Integer id) {
+	public String deleteAsset(@RequestParam("userId") Integer userId, @PathVariable("id") Integer id) {
 		assetServices.deleteAsset(id);
+		return "redirect:/users/" + userId + "/assets-amounts";
 	}
 
 }

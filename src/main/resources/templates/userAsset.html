@@ -38,13 +38,64 @@
 						<tbody id="assets-table-body">
 						</tbody>
 					</table>
-					<div id="table_card-body" class="card-body">
+					<div id="table_card-body" class="card-body"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="other_cards">
+		<div class="row row-cols-1 row-cols-md-2 g-4">
+			<div class="col">
+				<div class="card text-bg-dark mb-3 border-light h-100">
+					<div id="assets_list_card_body" class="card-body">
+						<div class="mb-3">
+							<p>Manage Assets</p>
+						</div>
+						<div class="col-auto">
+							<table id="assets_list_table"
+								class="table table-light table-striped table-hover">
+								<tbody>
+									<tr th:each="asset : ${userAssets}">
+										<td th:text="${asset.name}"></td>
+										<td th:text="${asset.user.id}"></td>
+										<td>
+											<form
+												th:action="@{/users/{userId}/assets/{id}(id=${asset.id})}"
+												method="POST">
+												<input type="hidden" name="_method" value="DELETE" />
+												<input type="hidden" name="userId" th:value="${asset.user.id}" />
+												<button class="btn btn-danger btn-sm" type="submit">Delete</button>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card text-bg-dark mb-3 border-light h-100">
+					<div class="card-body">
+						<!-- <form method="POST" th:object="${account}" id="accountForm"
+							th:action="@{'/users/' + ${userId} + '/accounts/post'}">
+							<div class="mb-3">
+								<input type="hidden" id="userId" name="userId" value="" /> <label
+									for="name" class="form-label">Create New Asset</label> <input
+									type="text" class="form-control" id="name" name="name"
+									th:field="*{name}" placeholder="Account Name">
+							</div>
+							<div class="col-auto">
+								<button type="submit" value="Create"
+									class="btn btn-primary mb-3">Submit</button>
+							</div>
+						</form> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<!-- 	script to load jQuery to perform AJAX requests -->
+	<!-- 	script to load jQuery to perform AJAX requests -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" th:src="@{/scripts/userAsset.js}"></script>
 	<script
