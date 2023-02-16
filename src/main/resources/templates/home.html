@@ -18,7 +18,7 @@
 <body>
 	<div th:replace="header :: header"></div>
 	<div id=title_div>
-		<h4>Profile Overview</h4>
+		<h4 th:text="'Welcome back, ' + ${user.firstName + '.'}"></h4>
 	</div>
 	<div id="cards">
 		<div class="row row-cols-1 row-cols-md-3 g-4">
@@ -27,25 +27,38 @@
 					<img src="https://www.computerhope.com/jargon/g/guest-user.png"
 						class="card-img-top" alt="profile-pic" id="profile-pic">
 					<div class="card-body">
-						<h5 class="card-title">Edward Nguyen</h5>
+						<h5 id="user-name" class="card-title">User Profile</h5>
 						<p class="card-text">
-							<a href="profile.html">Go to user settings</a>
+							<a href="profile.html">Update</a>
 						</p>
 					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item" id="username">USERNAME:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eln2023</li>
-						<li class="list-group-item" id="dob">DATE OF BIRTH:
-							01/01/1900</li>
-						<li class="list-group-item" id="occupation">OCCUPATION:
-							&nbsp;&nbsp; Software Developer</li>
-						<li class="list-group-item" id="address">ADDRESS:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 123 Four
-							St, Houston, TX 12345</li>
-						<li class="list-group-item" id="email">EMAIL:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							eln2023@gmail.com</li>
-					</ul>
+					<table id="profile-table"
+						class="table table-light table-striped table-hover">
+						<thead>
+						</thead>
+						<tbody id="profile-table-body">
+							<tr>
+								<td>FIRST NAME</td>
+								<td th:text="${user.firstName}"></td>
+							</tr>
+							<tr>
+								<td>LAST NAME</td>
+								<td th:text="${user.lastName}"></td>
+							</tr>
+							<tr>
+								<td>EMAIL</td>
+								<td th:text="${user.email}"></td>
+							</tr>
+							<tr>
+								<td>AGE</td>
+								<td th:text="${age}"></td>
+							</tr>
+							<tr>
+								<td>OCCUPATION</td>
+								<td th:text="${user.occupation}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div class="col">
@@ -53,28 +66,32 @@
 					<img src="https://i.imgur.com/8Ay4LZR.png" class="card-img-top"
 						alt="accounts-pic" id="accounts-pic">
 					<div class="card-body">
-						<h5 class="card-title">Financial Accounts</h5>
+						<h5 id="user-name" class="card-title">Financial Accounts</h5>
 						<p class="card-text">
-							<a href="networth.html">Go to accounts</a>
+							<a href="">Go to accounts</a>
 						</p>
 					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item" id="checking">BOA CHECKING:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$2,000.00</li>
-						<li class="list-group-item" id="savings">PNC SAVINGS:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $4,000.00</li>
-						<li class="list-group-item" id="401k">SCHWAB 401(k):
-							&nbsp;&nbsp;&nbsp; $40,000.00</li>
-						<li class="list-group-item" id="coinbase">COINBASE:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$3,000.00</li>
-						<li class="list-group-item" id="rentals">RENTALS:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							$200,000.00</li>
-						<li class="list-group-item" id=divider></li>
-						<li class="list-group-item" id="total">TOTAL:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							$249,500.00</li>
-					</ul>
+					<table id="accounts-table"
+						class="table table-light table-striped table-hover">
+						<thead>
+						</thead>
+						<tbody id="accounts-table-body">
+							<tr th:each="account : ${accountsList}">
+								<td th:text="${account.name}"></td>
+								<!-- Access account name from 'name' key -->
+								<td th:text="'$' + ${account.amount}"></td>
+								<!-- Access amount from 'amount' key -->
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>TOTAL</td>
+								<td th:text="'$' + ${totalAmount}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div class="col">
@@ -107,11 +124,13 @@
 			</div>
 			<div class="col">
 				<div class="card text-bg-dark mb-3 border-light h-100">
-					<img src="https://i.imgur.com/N1hrwba.png" class="card-img-top"
-						alt="assets-pic" id="credit-score-pic">
+					<img
+						src="https://www.nerdwallet.com/assets/blog/wp-content/uploads/2019/06/credit-score-ranges-600x450.png"
+						class="card-img-top" alt="assets-pic" id="credit-score-pic">
 
 					<div class="card-body">
-						<h5 class="card-title">Your Credit Score</h5>
+						<h5 class="card-title"
+							th:text="'Your Credit Score: ' + ${user.creditScore}"></h5>
 						<p class="card-text">
 							<a
 								href="https://www.nerdwallet.com/article/finance/raise-credit-score-fast"

@@ -41,17 +41,26 @@ public class UserServices {
 
 		if (userData.isPresent()) {
 			User _user = userData.get();
-			if (!user.getUsername().isEmpty()) {
-				_user.setUsername(user.getUsername());
+			if (!user.getEmail().isEmpty()) {
+				_user.setEmail(user.getEmail());
 			}
 			if (!user.getPassword().isEmpty()) {
 				_user.setPassword(user.getPassword());
 			}
-			if (!user.getEmail().isEmpty()) {
-				_user.setEmail(user.getEmail());
+			if (!user.getFirstName().isEmpty()) {
+				_user.setFirstName(user.getFirstName());
 			}
-			if (user.getAge() != null) {
-				_user.setAge(user.getAge());
+			if (!user.getLastName().isEmpty()) {
+				_user.setLastName(user.getLastName());
+			}
+			if (!user.getOccupation().isEmpty()) {
+				_user.setOccupation(user.getOccupation());
+			}
+			if (user.getDob() != null) {
+				_user.setDob(user.getDob());
+			}
+			if (user.getCreditScore() != null) {
+				_user.setCreditScore(user.getCreditScore());
 			}
 			userRepo.save(_user);
 		}

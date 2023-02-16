@@ -41,21 +41,23 @@ public class Goldr1Application {
 
 //		create user
 		User user1 = new User();
-		user1.setUsername("eln94");
+		user1.setEmail("eln94@gmail.com");
 		user1.setPassword("password1");
 		user1.setFirstName("Edward");
 		user1.setLastName("Nguyen");
-		user1.setEmail("eln94@gmail.com");
-		user1.setAge(28);
+		user1.setOccupation("Software Developer");
+		user1.setDob(LocalDate.of(1994, 11, 6));
+		user1.setCreditScore(750);
 		userRepo.save(user1);
 
 		User user2 = new User();
-		user2.setUsername("kkn89");
+		user2.setEmail("kkn89@gmail.com");
 		user2.setPassword("password2");
 		user2.setFirstName("Kevin");
 		user2.setLastName("Nguyen");
-		user2.setEmail("kkn89@gmail.com");
-		user2.setAge(33);
+		user2.setOccupation("Doctor");
+		user2.setDob(LocalDate.of(1989, 6, 14));
+		user2.setCreditScore(800);
 		userRepo.save(user2);
 
 //		create assets
@@ -94,7 +96,7 @@ public class Goldr1Application {
 //		create transactions
 		Txn txn1 = new Txn();
 		txn1.setAmount(100.01);
-		txn1.setDate(LocalDate.of(2023, 1, 1));
+		txn1.setDate(LocalDate.now());
 		txn1.setAsset(asset1);
 		txn1.setAccount(account1);
 //		frontend will set user either via URL params or in JSON
@@ -103,43 +105,27 @@ public class Goldr1Application {
 
 		Txn txn2 = new Txn();
 		txn2.setAmount(5000.01);
-		txn2.setDate(LocalDate.of(2023, 1, 1));
+		txn2.setDate(LocalDate.now());
 		txn2.setAsset(asset2);
 		txn2.setAccount(account2);
 		txn2.setUser(user1);
 		txnRepo.save(txn2);
 
 		Txn txn3 = new Txn();
-		txn3.setAmount(200.01);
-		txn3.setDate(LocalDate.of(2023, 2, 1));
-		txn3.setAsset(asset1);
-		txn3.setAccount(account1);
-		txn3.setUser(user1);
+		txn3.setAmount(100000.01);
+		txn3.setDate(LocalDate.now());
+		txn3.setAsset(asset3);
+		txn3.setAccount(account3);
+		txn3.setUser(user2);
 		txnRepo.save(txn3);
 
 		Txn txn4 = new Txn();
-		txn4.setAmount(6000.01);
-		txn4.setDate(LocalDate.of(2023, 2, 1));
-		txn4.setAsset(asset2);
-		txn4.setAccount(account2);
-		txn4.setUser(user1);
+		txn4.setAmount(10000.02);
+		txn4.setDate(LocalDate.now());
+		txn4.setAsset(asset3);
+		txn4.setAccount(account3);
+		txn4.setUser(user2);
 		txnRepo.save(txn4);
-
-		Txn txn5 = new Txn();
-		txn5.setAmount(100000.01);
-		txn5.setDate(LocalDate.of(2023, 1, 15));
-		txn5.setAsset(asset3);
-		txn5.setAccount(account3);
-		txn5.setUser(user2);
-		txnRepo.save(txn5);
-		
-		Txn txn6 = new Txn();
-		txn6.setAmount(10000.02);
-		txn6.setDate(LocalDate.of(2023, 1, 15));
-		txn6.setAsset(asset3);
-		txn6.setAccount(account3);
-		txn6.setUser(user2);
-		txnRepo.save(txn6);
 
 	}
 

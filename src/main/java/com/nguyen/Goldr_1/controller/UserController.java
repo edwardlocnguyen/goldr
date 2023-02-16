@@ -1,5 +1,9 @@
 package com.nguyen.Goldr_1.controller;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,14 +48,40 @@ public class UserController {
 
 	@GetMapping("/home")
 	public String userHome(@PathVariable("id") Integer id, Model model) {
-		
+
+		Optional<User> user = userServices.getUserById(id);
+		User _user = user.get();
+		LocalDate dob = _user.getDob();
+		Integer age = (int) ChronoUnit.YEARS.between(dob, LocalDate.now());
+
 		List<Asset> userAssets = assetRepo.findByUserId(id);
 		List<Account> userAccounts = accountRepo.findByUserId(id);
+		List<Object[]> userAccountsAmounts = userServices.getAccountsAmountsByUserId(id);
+
+//		converting userAccountsAmounts from List of List to List of Obj
+		List<Map<String, Object>> accountsList = new ArrayList<>();
 		
+		double totalAmount = 0;
+		for (Object[] account : userAccountsAmounts) {
+			Map<String, Object> accountMap = new HashMap<>();
+			accountMap.put("id", account[0]);
+			accountMap.put("name", account[1]);
+			accountMap.put("asset", account[2]);
+			accountMap.put("amount", account[3]);
+			accountsList.add(accountMap);
+			totalAmount += (double) account[3];
+		}
+
+		model.addAttribute("user", _user);
 		model.addAttribute("id", id.toString());
+		model.addAttribute("age", age);
 		model.addAttribute("userAssets", userAssets);
 		model.addAttribute("userAccounts", userAccounts);
 		
+		model.addAttribute("userAccountsAmounts", userAccountsAmounts);
+		model.addAttribute("accountsList", accountsList);
+		model.addAttribute("totalAmount", totalAmount);
+
 		return "home";
 	}
 
@@ -81,18 +111,18 @@ public class UserController {
 		model.addAttribute("txn", new Txn());
 		model.addAttribute("userAssets", userAssets);
 		model.addAttribute("userAccounts", userAccounts);
-		
+
 		return "userAccount";
 	}
 
 	@GetMapping("/assets-amounts")
 	public String userAsset(@PathVariable("id") Integer id, Model model) {
 		List<Asset> userAssets = assetRepo.findByUserId(id);
-		
+
 		model.addAttribute("id", id.toString());
 		model.addAttribute("asset", new Asset());
 		model.addAttribute("userAssets", userAssets);
-		
+
 		return "userAsset";
 	}
 

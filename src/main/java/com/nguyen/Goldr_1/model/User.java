@@ -1,6 +1,7 @@
 package com.nguyen.Goldr_1.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -28,12 +29,13 @@ public class User implements Serializable {
 
 	@Column(unique = true)
 	@Nonnull
-	private String username;
+	private String email;
 	private String password;
 	private String firstName;
 	private String lastName;
-	private String email;
-	private Integer age;
+	private String occupation;
+	private LocalDate dob;
+	private Integer creditScore;
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "user", targetEntity = Asset.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -54,27 +56,29 @@ public class User implements Serializable {
 	private List<Txn> txns;
 
 	public User() {
-		this.username = "";
+		this.email = "";
 		this.password = "";
 		this.firstName = "";
 		this.lastName = "";
-		this.email = "";
-		this.age = 0;
+		this.occupation = "";
+		this.dob = null;
+		this.creditScore = 0;
 		this.assets = null;
 		this.accounts = null;
 		this.txns = null;
 	}
 
-	public User(int id, String username, String password, String firstName, String lastName, String email, Integer age,
-			List<Asset> assets, List<Account> accounts, List<Txn> txns) {
+	public User(int id, String email, String password, String firstName, String lastName, String occupation,
+			LocalDate dob, Integer creditScore, List<Asset> assets, List<Account> accounts, List<Txn> txns) {
 		super();
 		this.id = id;
-		this.username = username;
+		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
-		this.age = age;
+		this.occupation = occupation;
+		this.dob = dob;
+		this.creditScore = creditScore;
 		this.assets = assets;
 		this.accounts = accounts;
 		this.txns = txns;
@@ -88,12 +92,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -120,20 +124,28 @@ public class User implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getOccupation() {
+		return occupation;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
 	}
 
-	public Integer getAge() {
-		return age;
+	public LocalDate getDob() {
+		return dob;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+
+	public Integer getCreditScore() {
+		return creditScore;
+	}
+
+	public void setCreditScore(Integer creditScore) {
+		this.creditScore = creditScore;
 	}
 
 	public List<Asset> getAssets() {
@@ -166,9 +178,9 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", age=" + age + ", assets=" + assets + ", accounts="
-				+ accounts + ", txns=" + txns + "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", occupation=" + occupation + ", dob=" + dob + ", creditScore="
+				+ creditScore + ", assets=" + assets + ", accounts=" + accounts + ", txns=" + txns + "]";
 	}
 
 }
