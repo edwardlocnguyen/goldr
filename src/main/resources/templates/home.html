@@ -18,7 +18,7 @@
 <body>
 	<div th:replace="header :: header"></div>
 	<div id=title_div>
-		<h4>Home</h4>
+		<h4>Profile Overview</h4>
 	</div>
 	<div id="cards">
 		<div class="row row-cols-1 row-cols-md-3 g-4">
@@ -29,7 +29,7 @@
 					<div class="card-body">
 						<h5 class="card-title">Edward Nguyen</h5>
 						<p class="card-text">
-							<a href="profile.html">Go to user profile</a>
+							<a href="profile.html">Go to user settings</a>
 						</p>
 					</div>
 					<ul class="list-group list-group-flush">
@@ -46,6 +46,114 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							eln2023@gmail.com</li>
 					</ul>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card text-bg-dark mb-3 border-light h-100">
+					<img src="https://i.imgur.com/8Ay4LZR.png" class="card-img-top"
+						alt="accounts-pic" id="accounts-pic">
+					<div class="card-body">
+						<h5 class="card-title">Financial Accounts</h5>
+						<p class="card-text">
+							<a href="networth.html">Go to accounts</a>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item" id="checking">BOA CHECKING:
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$2,000.00</li>
+						<li class="list-group-item" id="savings">PNC SAVINGS:
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $4,000.00</li>
+						<li class="list-group-item" id="401k">SCHWAB 401(k):
+							&nbsp;&nbsp;&nbsp; $40,000.00</li>
+						<li class="list-group-item" id="coinbase">COINBASE:
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$3,000.00</li>
+						<li class="list-group-item" id="rentals">RENTALS:
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							$200,000.00</li>
+						<li class="list-group-item" id=divider></li>
+						<li class="list-group-item" id="total">TOTAL:
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							$249,500.00</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card text-bg-dark mb-3 border-light h-100">
+					<img src="https://i.imgur.com/o72IwZL.png" class="card-img-top"
+						alt="assets-pic" id="assets-pic">
+					<div class="card-body">
+						<h5 class="card-title">Asset Type Allocation</h5>
+						<p class="card-text">
+							<a href="asset.html">Go to assets</a>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item" id="username">CASH:
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.20%</li>
+						<li class="list-group-item" id="dob">STOCKS:
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							61.50%</li>
+						<li class="list-group-item" id="dob">BONDS:
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							10.00%</li>
+						<li class="list-group-item" id="occupation">CRYPTO:
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							2.20%</li>
+						<li class="list-group-item" id="address">REAL ESTATE:
+							&nbsp;&nbsp;&nbsp;31.20%</li>
+						<li class="list-group-item" id="email">COLLECTIBLES: 1.00%</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card text-bg-dark mb-3 border-light h-100">
+					<img src="https://i.imgur.com/N1hrwba.png" class="card-img-top"
+						alt="assets-pic" id="credit-score-pic">
+
+					<div class="card-body">
+						<h5 class="card-title">Your Credit Score</h5>
+						<p class="card-text">
+							<a
+								href="https://www.nerdwallet.com/article/finance/raise-credit-score-fast"
+								target="_blank">Ways to improve your credit score</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card text-bg-dark mb-3 border-light h-100">
+					<div
+						style="width: 100%; height: 0; padding-bottom: 100%; position: relative;">
+						<iframe src="https://giphy.com/embed/lXiRLb0xFzmreM8k8"
+							width="100%" height="100%" style="position: absolute"
+							frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">Latest News in Finance</h5>
+						<p class="card-text">
+							<a href="https://www.bloomberg.com/" target="_blank">Go to
+								top stories</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card text-bg-dark mb-3 border-light h-100">
+					<div
+						style="width: 100%; height: 0; padding-bottom: 100%; position: relative;">
+						<iframe width="100%" height="100%" style="position: absolute"
+							src="https://www.youtube.com/embed/iQ6u4tCi4cY"
+							title="YouTube video player" frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowfullscreen></iframe>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">Featured Video</h5>
+						<p class="card-text">
+							<a href="https://www.youtube.com/watch?v=iQ6u4tCi4cY"
+								target="_blank">Living on $210K A Year in NYC</a>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>

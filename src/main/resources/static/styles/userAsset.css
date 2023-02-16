@@ -3,14 +3,14 @@
 body {
 	background-color: #6c6c6c;
 	color: white;
-	font-family: 'Aboreto', cursive;
-	font-family: 'Abril Fatface', cursive;
 }
 
 #title_div {
 	display: flex;
 	justify-content: center;
 	margin: 30px auto;
+	font-family: 'Aboreto', cursive;
+	font-family: 'Abril Fatface', cursive;
 }
 
 #table_div {
