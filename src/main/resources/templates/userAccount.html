@@ -86,7 +86,7 @@
 						<form method="POST" th:object="${txn}" id="txnForm"
 							th:action="@{'/users/' + ${userIdTxn} + '/txns/post'}">
 							<div class="mb-3">
-								<input type="hidden" id="userIdTxn" name="userIdTxn" value="" />
+								<input type="hidden" id="userIdTxn" name="userIdTxn" th:value="${id}" />
 								<label for="amount" class="form-label">Amount</label> <input
 									type="number" class="form-control" id="amount" name="amount"
 									th:field="*{amount}" step="0.01" placeholder="Enter amount">

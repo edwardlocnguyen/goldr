@@ -38,7 +38,7 @@ $(document).ready(function() {
     // Set the userId in the create Account form
     document.getElementById("userId").value = parseInt(userId);
     // Set the userIdTxn in the create Txn form
-    document.getElementById("userIdTxn").value = parseInt(userId);
+    // document.getElementById("userIdTxn").value = parseInt(userId);
 
 });
 
