@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+body {
+	background-color: #6c6c6c;
+	color: white;
+	font-family: 'Aboreto', cursive;
+	font-family: 'Abril Fatface', cursive;
+}
+
+a {
+	text-decoration: none;
+}
+
+#title_div {
+	display: flex;
+	justify-content: center;
+	margin: 30px auto;
+}
+
+#cards {
+	width: 80%;
+	margin: 1% auto 3% auto;
+}
+
+#profile-pic {
+	height: auto;
+	width: 50%;
+	margin: auto;
+}

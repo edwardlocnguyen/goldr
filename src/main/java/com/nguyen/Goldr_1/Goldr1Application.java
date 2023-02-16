@@ -43,6 +43,8 @@ public class Goldr1Application {
 		User user1 = new User();
 		user1.setUsername("eln94");
 		user1.setPassword("password1");
+		user1.setFirstName("Edward");
+		user1.setLastName("Nguyen");
 		user1.setEmail("eln94@gmail.com");
 		user1.setAge(28);
 		userRepo.save(user1);
@@ -50,6 +52,8 @@ public class Goldr1Application {
 		User user2 = new User();
 		user2.setUsername("kkn89");
 		user2.setPassword("password2");
+		user2.setFirstName("Kevin");
+		user2.setLastName("Nguyen");
 		user2.setEmail("kkn89@gmail.com");
 		user2.setAge(33);
 		userRepo.save(user2);
