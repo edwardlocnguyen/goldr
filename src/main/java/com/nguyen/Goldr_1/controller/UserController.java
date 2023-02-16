@@ -43,8 +43,16 @@ public class UserController {
 //	}
 
 	@GetMapping("/home")
-	public Optional<User> getUserById(@PathVariable("id") Integer id) {
-		return userServices.getUserById(id);
+	public String userHome(@PathVariable("id") Integer id, Model model) {
+		
+		List<Asset> userAssets = assetRepo.findByUserId(id);
+		List<Account> userAccounts = accountRepo.findByUserId(id);
+		
+		model.addAttribute("id", id.toString());
+		model.addAttribute("userAssets", userAssets);
+		model.addAttribute("userAccounts", userAccounts);
+		
+		return "home";
 	}
 
 //	@PostMapping
