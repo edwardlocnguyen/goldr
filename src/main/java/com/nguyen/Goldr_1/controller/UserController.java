@@ -82,6 +82,7 @@ public class UserController {
 		List<Asset> userAssets = assetRepo.findByUserId(id);
 		
 		model.addAttribute("id", id.toString());
+		model.addAttribute("asset", new Asset());
 		model.addAttribute("userAssets", userAssets);
 		
 		return "userAsset";

@@ -62,8 +62,8 @@
 											<form
 												th:action="@{/users/{userId}/assets/{id}(id=${asset.id})}"
 												method="POST">
-												<input type="hidden" name="_method" value="DELETE" />
-												<input type="hidden" name="userId" th:value="${asset.user.id}" />
+												<input type="hidden" name="_method" value="DELETE" /> <input
+													type="hidden" name="userId" th:value="${asset.user.id}" />
 												<button class="btn btn-danger btn-sm" type="submit">Delete</button>
 											</form>
 										</td>
@@ -77,19 +77,21 @@
 			<div class="col">
 				<div class="card text-bg-dark mb-3 border-light h-100">
 					<div class="card-body">
-						<!-- <form method="POST" th:object="${account}" id="accountForm"
-							th:action="@{'/users/' + ${userId} + '/accounts/post'}">
+						<!-- 					{userId} in action gets its value from input value with name="userId" -->
+						<form method="POST" th:object="${asset}" id="assetForm"
+							th:action="@{/users/${userId}/assets/post(userId=${id})}">
 							<div class="mb-3">
-								<input type="hidden" id="userId" name="userId" value="" /> <label
-									for="name" class="form-label">Create New Asset</label> <input
+								<input type="hidden" id="userIdAsset" name="userId" th:value="${id}" />
+								<label for="name" class="form-label">Create New Asset</label> <input
 									type="text" class="form-control" id="name" name="name"
-									th:field="*{name}" placeholder="Account Name">
+									th:field="*{name}" placeholder="Asset Name">
 							</div>
+							<div th:text="${id}"></div>
 							<div class="col-auto">
 								<button type="submit" value="Create"
-									class="btn btn-primary mb-3">Submit</button>
+									class="btn btn-primary mb-3">Create</button>
 							</div>
-						</form> -->
+						</form>
 					</div>
 				</div>
 			</div>

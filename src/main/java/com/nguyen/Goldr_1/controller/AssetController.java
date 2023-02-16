@@ -45,10 +45,11 @@ public class AssetController {
 		return ASSET_FORM;
 	}
 
+//	requestparam refers to the value of the form's input tag, which is linked via name=userId
 	@PostMapping("/post")
 	public String createAsset(@RequestParam("userId") Integer userId, @ModelAttribute("asset") Asset asset) {
 		assetServices.addAsset(userId, asset);
-		return "redirect:/users/user-asset/" + userId;
+		return "redirect:/users/" + userId + "/assets-amounts";
 	}
 
 //	@PostMapping
