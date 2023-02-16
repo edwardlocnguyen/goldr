@@ -1,7 +1,10 @@
 package com.nguyen.Goldr_1.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,42 @@ public class TxnServices {
 	private AssetRepo assetRepo;
 	@Autowired
 	private AccountRepo accountRepo;
+
+	public List<Map<String, Object>> getTxnsByUserId(Integer userId) {
+		Optional<User> user = userRepo.findById(userId);
+		User _user = user.get();
+
+		List<Map<String, Object>> latestTxns = new ArrayList<>();
+
+		// Loop through each account
+		for (Account account : _user.getAccounts()) {
+			LocalDate latestDate = LocalDate.MIN;
+			Txn latestTxn = null;
+
+			// Loop through each transaction for this account
+			for (Txn txn : account.getTxns()) {
+				if (txn.getDate().isAfter(latestDate)) {
+					latestDate = txn.getDate();
+					latestTxn = txn;
+				}
+			}
+
+			// Add the latest transaction for this account to the final list
+			if (latestTxn != null) {
+				Map<String, Object> txnData = new HashMap<>();
+				txnData.put("id", latestTxn.getId());
+				txnData.put("amount", latestTxn.getAmount());
+				txnData.put("date", latestTxn.getDate());
+				txnData.put("accountId", latestTxn.getAccount().getId());
+				txnData.put("accountName", latestTxn.getAccount().getName());
+				txnData.put("assetId", latestTxn.getAsset().getId());
+				txnData.put("assetName", latestTxn.getAsset().getName());
+				latestTxns.add(txnData);
+			}
+		}
+
+		return latestTxns;
+	}
 
 	public List<Txn> getAllTxns() {
 		List<Txn> txns = new ArrayList<Txn>();
