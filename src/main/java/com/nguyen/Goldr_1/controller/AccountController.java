@@ -62,9 +62,9 @@ public class AccountController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteAccount(@RequestParam("userId") Integer userId, @PathVariable("id") Integer accountId) {
+	public String deleteAccount(@RequestParam("userId") Integer userId, @PathVariable("id") Integer accountId) {
 	    accountServices.deleteAccount(accountId);
-	    return ResponseEntity.ok().build();
+	    return "redirect:/users/" + userId + "/accounts-amounts";
 	}
 
 	

@@ -50,7 +50,7 @@ public class UserController {
 //	}
 
 //	reusable fxn to get user's assets and their amounts
-	public Map<String, Object> calculateAssetAmountsAndTotal(List<Map<String, Object>> userLatestAccountTxns) {
+	public List<Map<String, Object>> calculateAssetAmountsAndTotal(List<Map<String, Object>> userLatestAccountTxns) {
 		Map<Integer, Double> assetAmounts = new HashMap<>();
 		for (Map<String, Object> txn : userLatestAccountTxns) {
 			int assetId = (int) txn.get("assetId");
@@ -65,25 +65,26 @@ public class UserController {
 			Asset asset = assetRepo.findById(assetId).get();
 			Map<String, Object> assetAmountMap = new HashMap<>();
 			assetAmountMap.put("assetName", asset.getName());
-			assetAmountMap.put("totalAmount", totalAmount);
+			assetAmountMap.put("totalAmount", String.format("%.2f", totalAmount));
 			assetAmountsList.add(assetAmountMap);
 		}
 
+		return assetAmountsList;
+	}
+
+//	fxn to get the Total amount via the user's latest txns
+	public double calculateTotalAmount(List<Map<String, Object>> userLatestAccountTxns) {
 		double totalAmount = 0.0;
 		for (Map<String, Object> txn : userLatestAccountTxns) {
 			totalAmount += (double) txn.get("amount");
 		}
-
-		Map<String, Object> result = new HashMap<>();
-		result.put("assetAmountsList", assetAmountsList);
-		result.put("totalAmount", totalAmount);
-
-		return result;
+		return totalAmount;
 	}
 
 	@GetMapping("/home")
 	public String userHome(@PathVariable("id") Integer id, Model model) {
-		// get user data
+		
+//		get user data
 		Optional<User> user = userServices.getUserById(id);
 		User _user = user.get();
 		LocalDate dob = _user.getDob();
@@ -93,17 +94,24 @@ public class UserController {
 		List<Map<String, Object>> userLatestAccountTxns = txnServices.getAccountTxnsByUserId(id);
 
 //		call the fxn above to filter user's assets and their amounts
-		Map<String, Object> assetAmountsAndTotal = calculateAssetAmountsAndTotal(userLatestAccountTxns);
-		List<Map<String, Object>> assetAmountsList = (List<Map<String, Object>>) assetAmountsAndTotal
-				.get("assetAmountsList");
-		double totalAmount = (double) assetAmountsAndTotal.get("totalAmount");
+		List<Map<String, Object>> assetAmountsAndTotal = calculateAssetAmountsAndTotal(userLatestAccountTxns);
+
+//		get the total amount for the table
+		double totalAmount = calculateTotalAmount(userLatestAccountTxns);
+
+//		calculate the percentage of each asset amount over the total amount for the table
+		for (Map<String, Object> assetAmountMap : assetAmountsAndTotal) {
+			double assetAmount = Double.parseDouble((String) assetAmountMap.get("totalAmount"));
+			double assetPercentage = assetAmount / totalAmount * 100.0;
+			assetAmountMap.put("assetPercentage", String.format("%.2f", assetPercentage));
+		}
 
 		model.addAttribute("user", _user);
 		model.addAttribute("id", id.toString());
 		model.addAttribute("age", age);
 		model.addAttribute("totalAmount", totalAmount);
 		model.addAttribute("userLatestAccountTxns", userLatestAccountTxns);
-		model.addAttribute("assetAmountsList", assetAmountsList);
+		model.addAttribute("assetAmountsAndTotal", assetAmountsAndTotal);
 
 		return "home";
 	}
@@ -123,44 +131,62 @@ public class UserController {
 		userServices.deleteUser(id);
 	}
 
-//	mapping to pages that use methods in UserControllerJSON
 	@GetMapping("/accounts-amounts")
 	public String userAccount(@PathVariable("id") Integer id, Model model) {
+
+//		for the create new txn form, but might not need once i change the model relationships
+//			changing model relationships so that one account can only have one asset (category)
 		List<Asset> userAssets = assetRepo.findByUserId(id);
+//		get the user's accounts for the create new txn form, and delete buttons
 		List<Account> userAccounts = accountRepo.findByUserId(id);
 
+//		get the user's latest txns for the table
+		List<Map<String, Object>> userLatestAccountTxns = txnServices.getAccountTxnsByUserId(id);
+
+//		get the total amount for the table
+		double totalAmount = calculateTotalAmount(userLatestAccountTxns);
+
+//		id is used for all forms, account/txn used for respective create forms
 		model.addAttribute("id", id.toString());
 		model.addAttribute("account", new Account());
 		model.addAttribute("txn", new Txn());
+
 		model.addAttribute("userAssets", userAssets);
 		model.addAttribute("userAccounts", userAccounts);
+
+		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("userLatestAccountTxns", userLatestAccountTxns);
 
 		return "userAccount";
 	}
 
 	@GetMapping("/assets-amounts")
 	public String userAsset(@PathVariable("id") Integer id, Model model) {
-		List<Map<String, Object>> userLatestAccountTxns = txnServices.getAccountTxnsByUserId(id);
-		Map<String, Object> assetAmountsAndTotal = calculateAssetAmountsAndTotal(userLatestAccountTxns);
-		List<Map<String, Object>> assetAmountsList = (List<Map<String, Object>>) assetAmountsAndTotal
-				.get("assetAmountsList");
-
+		
+//		get the user's assets for the delete buttons
 		List<Asset> userAssets = assetRepo.findByUserId(id);
 
-		double totalAmount = (double) assetAmountsAndTotal.get("totalAmount");
+//		get the user's latest txns for the table
+		List<Map<String, Object>> userLatestAccountTxns = txnServices.getAccountTxnsByUserId(id);
+		List<Map<String, Object>> assetAmountsAndTotal = calculateAssetAmountsAndTotal(userLatestAccountTxns);
 
-		// calculate the percentage of each asset amount over the total amount
-		for (Map<String, Object> assetAmountMap : assetAmountsList) {
-			double assetAmount = (double) assetAmountMap.get("totalAmount");
+//		get the total amount for the table
+		double totalAmount = calculateTotalAmount(userLatestAccountTxns);
+
+//		calculate the percentage of each asset amount over the total amount for the table
+		for (Map<String, Object> assetAmountMap : assetAmountsAndTotal) {
+			double assetAmount = Double.parseDouble((String) assetAmountMap.get("totalAmount"));
 			double assetPercentage = assetAmount / totalAmount * 100.0;
 			assetAmountMap.put("assetPercentage", String.format("%.2f", assetPercentage));
 		}
 
+//		id is used for all forms, asset is used for create form
 		model.addAttribute("id", id.toString());
 		model.addAttribute("asset", new Asset());
+
 		model.addAttribute("totalAmount", totalAmount);
 		model.addAttribute("userAssets", userAssets);
-		model.addAttribute("assetAmountsList", assetAmountsList);
+		model.addAttribute("assetAmountsAndTotal", assetAmountsAndTotal);
 
 		return "userAsset";
 	}

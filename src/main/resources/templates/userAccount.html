@@ -16,7 +16,7 @@
 <title>User Accounts and Amounts</title>
 </head>
 <body>
-	<div th:replace="header :: header"></div>
+	<div th:replace="~{header :: header}"></div>
 	<div id=title_div>
 		<h4>Account Overview</h4>
 	</div>
@@ -25,7 +25,7 @@
 			<div class="col">
 				<div id="each_card"
 					class="card text-bg-dark mb-3 border-light h-100">
-					<table id="table"
+					<table id="table-test"
 						class="table table-light table-striped table-hover">
 						<thead>
 							<tr>
@@ -36,6 +36,25 @@
 							</tr>
 						</thead>
 						<tbody id="accounts-table-body">
+							<!-- Iterate over userLatestAccountTxns and populate the table rows -->
+							<tr th:each="txn, i : ${userLatestAccountTxns}">
+								<td th:text="${i.index + 1}"></td>
+								<td th:text="${txn.accountName}"></td>
+								<td th:text="${txn.assetName}"></td>
+								<td th:text="'$' + ${txn.amount}"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>TOTAL</td>
+								<td></td>
+								<td th:text="'$' + ${totalAmount}"></td>
+							</tr>
 						</tbody>
 					</table>
 					<div id="table_card-body" class="card-body"></div>
@@ -52,9 +71,21 @@
 							<p>Manage Accounts</p>
 						</div>
 						<div class="col-auto">
-							<table id="accounts_list_table"
+							<table id="accounts_list_table-test"
 								class="table table-light table-striped table-hover">
-								<tbody id="accounts-list-table-body">
+								<tbody>
+									<tr th:each="account : ${userAccounts}">
+										<td th:text="${account.name}"></td>
+										<td>
+											<form
+												th:action="@{/users/{userId}/accounts/{id}(id=${account.id})}"
+												method="POST">
+												<input type="hidden" name="_method" value="DELETE" /> <input
+													type="hidden" name="userId" th:value="${id}" />
+												<button class="btn btn-danger btn-sm" type="submit">Delete</button>
+											</form>
+										</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -67,9 +98,9 @@
 						<form method="POST" th:object="${account}" id="accountForm"
 							th:action="@{'/users/' + ${userId} + '/accounts/post'}">
 							<div class="mb-3">
-								<input type="hidden" id="userId" name="userId" value="" /> <label
-									for="name" class="form-label">Create New Account</label> <input
-									type="text" class="form-control" id="name" name="name"
+								<input type="hidden" id="userId" name="userId" th:value="${id}" />
+								<label for="name" class="form-label">Create New Account</label>
+								<input type="text" class="form-control" id="name" name="name"
 									th:field="*{name}" placeholder="Account Name">
 							</div>
 							<div class="col-auto">
@@ -86,13 +117,14 @@
 						<form method="POST" th:object="${txn}" id="txnForm"
 							th:action="@{'/users/' + ${userIdTxn} + '/txns/post'}">
 							<div class="mb-3">
-								<input type="hidden" id="userIdTxn" name="userIdTxn" th:value="${id}" />
-								<label for="amount" class="form-label">Amount</label> <input
-									type="number" class="form-control" id="amount" name="amount"
-									th:field="*{amount}" step="0.01" placeholder="Enter amount">
-								<label for="date">Date</label> <input type="date" id="date"
-									name="date" th:field="*{date}" /> <label for="account"
-									class="form-label">Account</label> <select name="account.id">
+								<input type="hidden" id="userIdTxn" name="userIdTxn"
+									th:value="${id}" /> <label for="amount" class="form-label">Amount</label>
+								<input type="number" class="form-control" id="amount"
+									name="amount" th:field="*{amount}" step="0.01"
+									placeholder="Enter amount"> <label for="date">Date</label>
+								<input type="date" id="date" name="date" th:field="*{date}" />
+								<label for="account" class="form-label">Account</label> <select
+									name="account.id">
 									<option th:value="${null}" th:selected="${txn.account == null}">Select
 										Account</option>
 									<option th:each="account : ${userAccounts}"

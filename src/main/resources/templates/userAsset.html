@@ -16,7 +16,7 @@
 <title>User Assets and Amounts</title>
 </head>
 <body>
-	<div th:replace="header :: header"></div>
+	<div th:replace="~{header :: header}"></div>
 	<div id=title_div>
 		<h4>Assets Overview</h4>
 	</div>
@@ -25,7 +25,7 @@
 			<div class="col">
 				<div id="each_card"
 					class="card text-bg-dark mb-3 border-light h-100">
-					<table id="table-test"
+					<table id="table"
 						class="table table-light table-striped table-hover">
 						<thead>
 							<tr>
@@ -37,7 +37,7 @@
 						</thead>
 						<tbody id="assets-table-body">
 							<!-- Loop through the assetAmountsList and populate the table -->
-							<tr th:each="asset, i : ${assetAmountsList}">
+							<tr th:each="asset, i : ${assetAmountsAndTotal}">
 								<td th:text="${i.index + 1}"></td>
 								<td th:text="${asset.assetName}"></td>
 								<td th:text="${asset.assetPercentage} + '%'"></td>
@@ -76,7 +76,6 @@
 								<tbody>
 									<tr th:each="asset : ${userAssets}">
 										<td th:text="${asset.name}"></td>
-										<td th:text="${id}"></td>
 										<td>
 											<form
 												th:action="@{/users/{userId}/assets/{id}(id=${asset.id})}"
@@ -105,7 +104,6 @@
 									New Asset</label> <input type="text" class="form-control" id="name"
 									name="name" th:field="*{name}" placeholder="Asset Name">
 							</div>
-							<div th:text="${id}"></div>
 							<div class="col-auto">
 								<button type="submit" value="Create"
 									class="btn btn-primary mb-3">Create</button>
