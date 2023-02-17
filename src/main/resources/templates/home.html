@@ -68,7 +68,8 @@
 					<div class="card-body">
 						<h5 id="user-name" class="card-title">Financial Accounts</h5>
 						<p class="card-text">
-							<a href="">Go to accounts</a>
+							<a th:href="@{/users/{id}/accounts-amounts(id=${id})}">Go to
+								accounts</a>
 						</p>
 					</div>
 					<table id="accounts-table"
@@ -76,11 +77,9 @@
 						<thead>
 						</thead>
 						<tbody id="accounts-table-body">
-							<tr th:each="account : ${accountsList}">
-								<td th:text="${account.name}"></td>
-								<!-- Access account name from 'name' key -->
-								<td th:text="'$' + ${account.amount}"></td>
-								<!-- Access amount from 'amount' key -->
+							<tr th:each="txn : ${userLatestAccountTxns}">
+								<td th:text="${txn.accountName}"></td>
+								<td th:text="'$' + ${txn.amount}"></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -101,25 +100,29 @@
 					<div class="card-body">
 						<h5 class="card-title">Asset Type Allocation</h5>
 						<p class="card-text">
-							<a href="asset.html">Go to assets</a>
+							<a th:href="@{/users/{id}/assets-amounts(id=${id})}">Go to
+								assets</a>
 						</p>
 					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item" id="username">CASH:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.20%</li>
-						<li class="list-group-item" id="dob">STOCKS:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							61.50%</li>
-						<li class="list-group-item" id="dob">BONDS:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							10.00%</li>
-						<li class="list-group-item" id="occupation">CRYPTO:
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							2.20%</li>
-						<li class="list-group-item" id="address">REAL ESTATE:
-							&nbsp;&nbsp;&nbsp;31.20%</li>
-						<li class="list-group-item" id="email">COLLECTIBLES: 1.00%</li>
-					</ul>
+					<table id="accounts-table"
+						class="table table-light table-striped table-hover">
+						<thead>
+						</thead>
+						<tbody id="accounts-table-body">
+							<tr th:each="asset : ${assetAmountsList}">
+								<td th:text="${asset.assetName}"></td>
+								<td th:text="'$' + ${asset.totalAmount}"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>TOTAL</td>
+								<td th:text="'$' + ${totalAmount}"></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div class="col">

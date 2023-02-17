@@ -24,6 +24,7 @@ import com.nguyen.Goldr_1.model.Txn;
 import com.nguyen.Goldr_1.model.User;
 import com.nguyen.Goldr_1.repository.AccountRepo;
 import com.nguyen.Goldr_1.repository.AssetRepo;
+import com.nguyen.Goldr_1.services.TxnServices;
 import com.nguyen.Goldr_1.services.UserServices;
 
 import org.springframework.ui.Model;
@@ -36,6 +37,8 @@ public class UserController {
 	@Autowired
 	private UserServices userServices;
 	@Autowired
+	private TxnServices txnServices;
+	@Autowired
 	private AssetRepo assetRepo;
 	@Autowired
 	private AccountRepo accountRepo;
@@ -46,41 +49,61 @@ public class UserController {
 //		return userServices.getAllUsers();
 //	}
 
+//	reusable fxn to get user's assets and their amounts
+	public Map<String, Object> calculateAssetAmountsAndTotal(List<Map<String, Object>> userLatestAccountTxns) {
+		Map<Integer, Double> assetAmounts = new HashMap<>();
+		for (Map<String, Object> txn : userLatestAccountTxns) {
+			int assetId = (int) txn.get("assetId");
+			double amount = (double) txn.get("amount");
+			assetAmounts.put(assetId, assetAmounts.getOrDefault(assetId, 0.0) + amount);
+		}
+
+		List<Map<String, Object>> assetAmountsList = new ArrayList<>();
+		for (Map.Entry<Integer, Double> entry : assetAmounts.entrySet()) {
+			int assetId = entry.getKey();
+			double totalAmount = entry.getValue();
+			Asset asset = assetRepo.findById(assetId).get();
+			Map<String, Object> assetAmountMap = new HashMap<>();
+			assetAmountMap.put("assetName", asset.getName());
+			assetAmountMap.put("totalAmount", totalAmount);
+			assetAmountsList.add(assetAmountMap);
+		}
+
+		double totalAmount = 0.0;
+		for (Map<String, Object> txn : userLatestAccountTxns) {
+			totalAmount += (double) txn.get("amount");
+		}
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("assetAmountsList", assetAmountsList);
+		result.put("totalAmount", totalAmount);
+
+		return result;
+	}
+
 	@GetMapping("/home")
 	public String userHome(@PathVariable("id") Integer id, Model model) {
-
+		// get user data
 		Optional<User> user = userServices.getUserById(id);
 		User _user = user.get();
 		LocalDate dob = _user.getDob();
 		Integer age = (int) ChronoUnit.YEARS.between(dob, LocalDate.now());
 
-		List<Asset> userAssets = assetRepo.findByUserId(id);
-		List<Account> userAccounts = accountRepo.findByUserId(id);
-		List<Object[]> userAccountsAmounts = userServices.getAccountsAmountsByUserId(id);
+		// get user's latest txns
+		List<Map<String, Object>> userLatestAccountTxns = txnServices.getAccountTxnsByUserId(id);
 
-//		converting userAccountsAmounts from List of List to List of Obj
-		List<Map<String, Object>> accountsList = new ArrayList<>();
-		
-		double totalAmount = 0;
-		for (Object[] account : userAccountsAmounts) {
-			Map<String, Object> accountMap = new HashMap<>();
-			accountMap.put("id", account[0]);
-			accountMap.put("name", account[1]);
-			accountMap.put("asset", account[2]);
-			accountMap.put("amount", account[3]);
-			accountsList.add(accountMap);
-			totalAmount += (double) account[3];
-		}
+//		call the fxn above to filter user's assets and their amounts
+		Map<String, Object> assetAmountsAndTotal = calculateAssetAmountsAndTotal(userLatestAccountTxns);
+		List<Map<String, Object>> assetAmountsList = (List<Map<String, Object>>) assetAmountsAndTotal
+				.get("assetAmountsList");
+		double totalAmount = (double) assetAmountsAndTotal.get("totalAmount");
 
 		model.addAttribute("user", _user);
 		model.addAttribute("id", id.toString());
 		model.addAttribute("age", age);
-		model.addAttribute("userAssets", userAssets);
-		model.addAttribute("userAccounts", userAccounts);
-		
-		model.addAttribute("userAccountsAmounts", userAccountsAmounts);
-		model.addAttribute("accountsList", accountsList);
 		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("userLatestAccountTxns", userLatestAccountTxns);
+		model.addAttribute("assetAmountsList", assetAmountsList);
 
 		return "home";
 	}
@@ -117,11 +140,27 @@ public class UserController {
 
 	@GetMapping("/assets-amounts")
 	public String userAsset(@PathVariable("id") Integer id, Model model) {
+		List<Map<String, Object>> userLatestAccountTxns = txnServices.getAccountTxnsByUserId(id);
+		Map<String, Object> assetAmountsAndTotal = calculateAssetAmountsAndTotal(userLatestAccountTxns);
+		List<Map<String, Object>> assetAmountsList = (List<Map<String, Object>>) assetAmountsAndTotal
+				.get("assetAmountsList");
+
 		List<Asset> userAssets = assetRepo.findByUserId(id);
+
+		double totalAmount = (double) assetAmountsAndTotal.get("totalAmount");
+
+		// calculate the percentage of each asset amount over the total amount
+		for (Map<String, Object> assetAmountMap : assetAmountsList) {
+			double assetAmount = (double) assetAmountMap.get("totalAmount");
+			double assetPercentage = assetAmount / totalAmount * 100.0;
+			assetAmountMap.put("assetPercentage", String.format("%.2f", assetPercentage));
+		}
 
 		model.addAttribute("id", id.toString());
 		model.addAttribute("asset", new Asset());
+		model.addAttribute("totalAmount", totalAmount);
 		model.addAttribute("userAssets", userAssets);
+		model.addAttribute("assetAmountsList", assetAmountsList);
 
 		return "userAsset";
 	}

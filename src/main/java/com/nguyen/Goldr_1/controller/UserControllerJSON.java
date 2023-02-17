@@ -23,7 +23,7 @@ public class UserControllerJSON {
 
 	@GetMapping("/txns")
 	public List<Map<String, Object>> getTxnsByUserId(@PathVariable("id") Integer userId) {
-		return txnServices.getTxnsByUserId(userId);
+		return txnServices.getAccountTxnsByUserId(userId);
 	}
 
 	@GetMapping("/accounts-amounts")

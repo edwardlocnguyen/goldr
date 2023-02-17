@@ -25,7 +25,7 @@
 			<div class="col">
 				<div id="each_card"
 					class="card text-bg-dark mb-3 border-light h-100">
-					<table id="table"
+					<table id="table-test"
 						class="table table-light table-striped table-hover">
 						<thead>
 							<tr>
@@ -36,6 +36,25 @@
 							</tr>
 						</thead>
 						<tbody id="assets-table-body">
+							<!-- Loop through the assetAmountsList and populate the table -->
+							<tr th:each="asset, i : ${assetAmountsList}">
+								<td th:text="${i.index + 1}"></td>
+								<td th:text="${asset.assetName}"></td>
+								<td th:text="${asset.assetPercentage} + '%'"></td>
+								<td th:text="'$' + ${asset.totalAmount}"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>TOTAL</td>
+								<td>100.00%</td>
+								<td th:text="'$' + ${totalAmount}"></td>
+							</tr>
 						</tbody>
 					</table>
 					<div id="table_card-body" class="card-body"></div>
@@ -57,13 +76,13 @@
 								<tbody>
 									<tr th:each="asset : ${userAssets}">
 										<td th:text="${asset.name}"></td>
-										<td th:text="${asset.user.id}"></td>
+										<td th:text="${id}"></td>
 										<td>
 											<form
 												th:action="@{/users/{userId}/assets/{id}(id=${asset.id})}"
 												method="POST">
 												<input type="hidden" name="_method" value="DELETE" /> <input
-													type="hidden" name="userId" th:value="${asset.user.id}" />
+													type="hidden" name="userId" th:value="${id}" />
 												<button class="btn btn-danger btn-sm" type="submit">Delete</button>
 											</form>
 										</td>
@@ -81,10 +100,10 @@
 						<form method="POST" th:object="${asset}" id="assetForm"
 							th:action="@{/users/${userId}/assets/post(userId=${id})}">
 							<div class="mb-3">
-								<input type="hidden" id="userIdAsset" name="userId" th:value="${id}" />
-								<label for="name" class="form-label">Create New Asset</label> <input
-									type="text" class="form-control" id="name" name="name"
-									th:field="*{name}" placeholder="Asset Name">
+								<input type="hidden" id="userIdAsset" name="userId"
+									th:value="${id}" /> <label for="name" class="form-label">Create
+									New Asset</label> <input type="text" class="form-control" id="name"
+									name="name" th:field="*{name}" placeholder="Asset Name">
 							</div>
 							<div th:text="${id}"></div>
 							<div class="col-auto">

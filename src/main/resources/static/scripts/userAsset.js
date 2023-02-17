@@ -1,3 +1,4 @@
+/*
 $(document).ready(function() {
     var userId = window.location.pathname.split("/")[2];
     $.get("/users/" + userId + "/api/assets-amounts", function(data) {
@@ -25,3 +26,4 @@ $(document).ready(function() {
         });
     });
 });
+*/

@@ -31,7 +31,7 @@ public class TxnServices {
 	@Autowired
 	private AccountRepo accountRepo;
 
-	public List<Map<String, Object>> getTxnsByUserId(Integer userId) {
+	public List<Map<String, Object>> getAccountTxnsByUserId(Integer userId) {
 		Optional<User> user = userRepo.findById(userId);
 		User _user = user.get();
 
