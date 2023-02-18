@@ -41,6 +41,8 @@ public class UserServices {
 
 		if (userData.isPresent()) {
 			User _user = userData.get();
+			System.out.println("user first_name from services: " + user.getFirstName());
+			System.out.println("user credit_score from services: " + user.getCreditScore());
 			if (!user.getEmail().isEmpty()) {
 				_user.setEmail(user.getEmail());
 			}
@@ -59,6 +61,7 @@ public class UserServices {
 			if (user.getDob() != null) {
 				_user.setDob(user.getDob());
 			}
+			System.out.println("_user credit_score from services: " + user.getCreditScore());
 			if (user.getCreditScore() != null) {
 				_user.setCreditScore(user.getCreditScore());
 			}

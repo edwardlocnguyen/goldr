@@ -13,7 +13,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Aboreto&family=Abril+Fatface&display=swap"
 	rel="stylesheet">
-<title>home</title>
+<title>Home</title>
 </head>
 <body>
 	<div th:replace="~{header :: header}"></div>
@@ -29,7 +29,7 @@
 					<div class="card-body">
 						<h5 id="user-name" class="card-title">User Profile</h5>
 						<p class="card-text">
-							<a href="profile.html">Update</a>
+							<a th:href="@{/users/{id}/profile(id=${id})}">Update</a>
 						</p>
 					</div>
 					<table id="profile-table"

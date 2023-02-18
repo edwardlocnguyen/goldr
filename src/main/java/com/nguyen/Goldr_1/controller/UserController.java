@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,6 +25,7 @@ import com.nguyen.Goldr_1.model.Txn;
 import com.nguyen.Goldr_1.model.User;
 import com.nguyen.Goldr_1.repository.AccountRepo;
 import com.nguyen.Goldr_1.repository.AssetRepo;
+import com.nguyen.Goldr_1.repository.UserRepo;
 import com.nguyen.Goldr_1.services.TxnServices;
 import com.nguyen.Goldr_1.services.UserServices;
 
@@ -43,11 +45,10 @@ public class UserController {
 	@Autowired
 	private AccountRepo accountRepo;
 
+	@Autowired
+	private UserRepo userRepo;
+
 //	CRUD methods
-//	@GetMapping
-//	public List<User> getAllUsers() {
-//		return userServices.getAllUsers();
-//	}
 
 //	reusable fxn to get user's assets and their amounts
 	public List<Map<String, Object>> calculateAssetAmountsAndTotal(List<Map<String, Object>> userLatestAccountTxns) {
@@ -81,14 +82,20 @@ public class UserController {
 		return totalAmount;
 	}
 
+//	fxn to get the user's age
+	public int calculateUserAge(User _user) {
+		LocalDate dob = _user.getDob();
+		int age = (int) ChronoUnit.YEARS.between(dob, LocalDate.now());
+		return age;
+	}
+
 	@GetMapping("/home")
 	public String userHome(@PathVariable("id") Integer id, Model model) {
-		
+
 //		get user data
 		Optional<User> user = userServices.getUserById(id);
 		User _user = user.get();
-		LocalDate dob = _user.getDob();
-		Integer age = (int) ChronoUnit.YEARS.between(dob, LocalDate.now());
+		int age = calculateUserAge(_user);
 
 		// get user's latest txns
 		List<Map<String, Object>> userLatestAccountTxns = txnServices.getAccountTxnsByUserId(id);
@@ -116,19 +123,19 @@ public class UserController {
 		return "home";
 	}
 
-//	@PostMapping
-//	public void createUser(@RequestBody User user) {
-//		userServices.addUser(user);
-//	}
+	@GetMapping("/profile")
+	public String userProfile(@PathVariable("id") Integer id, Model model) {
 
-	@PutMapping
-	public void updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
-		userServices.updateUser(id, user);
-	}
+//		get user data
+		Optional<User> user = userServices.getUserById(id);
+		User _user = user.get();
+		int age = calculateUserAge(_user);
 
-	@DeleteMapping
-	public void deleteUser(@PathVariable("id") Integer id) {
-		userServices.deleteUser(id);
+		model.addAttribute("user", _user);
+		model.addAttribute("id", id.toString());
+		model.addAttribute("age", age);
+
+		return "profile";
 	}
 
 	@GetMapping("/accounts-amounts")
@@ -162,7 +169,7 @@ public class UserController {
 
 	@GetMapping("/assets-amounts")
 	public String userAsset(@PathVariable("id") Integer id, Model model) {
-		
+
 //		get the user's assets for the delete buttons
 		List<Asset> userAssets = assetRepo.findByUserId(id);
 
@@ -189,6 +196,28 @@ public class UserController {
 		model.addAttribute("assetAmountsAndTotal", assetAmountsAndTotal);
 
 		return "userAsset";
+	}
+
+//	@PostMapping
+//	public void createUser(@RequestBody User user) {
+//		userServices.addUser(user);
+//	}
+
+	@PutMapping("/update")
+	public String updateUser(@PathVariable("id") Integer id, @ModelAttribute User user) {
+
+		Optional<User> userData = userRepo.findById(id);
+		System.out.println("user first_name from controller: " + user.getFirstName());
+		System.out.println("user last_name from controller: " + user.getLastName());
+		System.out.println("user credit_score from controller: " + user.getCreditScore());
+
+		userServices.updateUser(id, user);
+		return "redirect:/users/" + id + "/profile";
+	}
+
+	@DeleteMapping
+	public void deleteUser(@PathVariable("id") Integer id) {
+		userServices.deleteUser(id);
 	}
 
 }

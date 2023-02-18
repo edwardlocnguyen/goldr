@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+body {
+	background-color: #6c6c6c;
+	color: white;
+}
+
+#title_div {
+	display: flex;
+	justify-content: center;
+	margin: 30px auto;
+	font-family: 'Aboreto', cursive;
+	font-family: 'Abril Fatface', cursive;
+}
+
+#page {
+	display: flex;
+	justify-content: center;
+	width: 80%;
+	margin: auto;
+}
+
+#profile-pic {
+	height: auto;
+	width: 50%;
+	margin: 5% auto auto auto;
+}
+
+#form-div {
+	margin: 5%;
+}
