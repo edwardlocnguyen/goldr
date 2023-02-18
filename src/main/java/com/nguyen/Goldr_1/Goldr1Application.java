@@ -55,24 +55,24 @@ public class Goldr1Application {
 //		user2.setPassword("password2");
 //		user2.setFirstName("Kevin");
 //		user2.setLastName("Nguyen");
-//		user2.setOccupation("Doctor");
+//		user2.setOccupation("Family Doctor");
 //		user2.setDob(LocalDate.of(1989, 6, 14));
 //		user2.setCreditScore(800);
 //		userRepo.save(user2);
 //
 ////		create assets
 //		Asset asset1 = new Asset();
-//		asset1.setName("cash");
+//		asset1.setName("Cash");
 //		asset1.setUser(user1);
 //		assetRepo.save(asset1);
 //
 //		Asset asset2 = new Asset();
-//		asset2.setName("investments");
+//		asset2.setName("Investments");
 //		asset2.setUser(user1);
 //		assetRepo.save(asset2);
 //
 //		Asset asset3 = new Asset();
-//		asset3.setName("cash");
+//		asset3.setName("Cash");
 //		asset3.setUser(user2);
 //		assetRepo.save(asset3);
 //

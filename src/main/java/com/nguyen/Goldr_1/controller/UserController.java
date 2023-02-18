@@ -207,9 +207,6 @@ public class UserController {
 	public String updateUser(@PathVariable("id") Integer id, @ModelAttribute User user) {
 
 		Optional<User> userData = userRepo.findById(id);
-		System.out.println("user first_name from controller: " + user.getFirstName());
-		System.out.println("user last_name from controller: " + user.getLastName());
-		System.out.println("user credit_score from controller: " + user.getCreditScore());
 
 		userServices.updateUser(id, user);
 		return "redirect:/users/" + id + "/profile";

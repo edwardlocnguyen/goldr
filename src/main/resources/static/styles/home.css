@@ -17,18 +17,18 @@ a:hover {
 #title_div {
 	display: flex;
 	justify-content: center;
-	margin: 30px auto;
+	margin: 3% auto;
 	font-family: 'Aboreto', cursive;
 	font-family: 'Abril Fatface', cursive;
 }
 
 #cards {
-	width: 80%;
-	margin: 1% auto 3% auto;
+	width: 60%;
+	margin: 2% auto 5% auto;
 }
 
 #profile-pic {
 	height: auto;
 	width: 50%;
-	margin: auto;
+	margin: 5% auto auto auto;
 }
